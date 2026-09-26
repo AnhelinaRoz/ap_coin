@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aurum Partners | Or physique et métaux précieux</title>
+<meta name="description" content="Achat, vente et négoce d'or physique pour investisseurs et institutions. Métal traçable, conformité stricte, prix transparents. Contactez un conseiller.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --navy:#0B1F3A;
+    --navy-deep:#071626;
+    --navy-soft:#12274A;
+    --gold:#C6A15B;
+    --gold-bright:#E4C98B;
+    --gold-dim:#9C7C42;
+    --cream:#F6F1E7;
+    --cream-dim:#EAE2D2;
+    --line: rgba(198,161,91,.32);
+    --line-soft: rgba(198,161,91,.16);
+    --ease: cubic-bezier(.16,.8,.24,1);
+    --ease-soft: cubic-bezier(.22,.61,.36,1);
+    --dur-s: 420ms;
+    --dur-m: 900ms;
+    --dur-l: 1400ms;
+    /* one fluid page gutter for header, hero and every section (+ notch safe areas) */
+    --gutter: clamp(20px,5vw,72px);
+    --gutter-l: max(var(--gutter), env(safe-area-inset-left));
+    --gutter-r: max(var(--gutter), env(safe-area-inset-right));
+    /* compact-header metrics, fluid between 320px and ~800px */
+    --nav-py: clamp(12px, 3vw, 22px);
+    --mark: clamp(24px, 1rem + 2.6vw, 36px);
+    --bw: clamp(22px, 1rem + 1.6vw, 30px);
+    /* vertical rhythm: one fluid section padding for every band */
+    --section-y: clamp(48px, 5vw + 32px, 120px);   /* 50px @375 · 70px @768 · 104px @1440 */
+    --head-gap: clamp(28px, 3vw + 16px, 64px);      /* section title → content */
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;
+      scroll-behavior:auto !important;
+    }
+  }
+
+  body{
+    margin:0;
+    background:var(--navy);
+    color:var(--cream);
+    font-family:'Montserrat',sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--gold); color:var(--navy); }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; background:none; border:none; color:inherit; cursor:pointer; }
+  img,svg{ display:block; max-width:100%; }
+
+  h1,h2,h3{
+    font-family:'Playfair Display',Georgia,serif;
+    font-weight:700;
+    margin:0;
+    color:inherit;
+  }
+
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    font-weight:500;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .eyebrow .mk{ width:9px; height:9px; flex:none; opacity:.9; }
+
+  :focus-visible{
+    outline:1px solid var(--gold-bright);
+    outline-offset:4px;
+  }
+
+  .wrap{
+    max-width:1360px;
+    margin:0 auto;
+    padding:0 var(--gutter-r) 0 var(--gutter-l);
+  }
+
+  /* ---------- scroll progress hairline ---------- */
+  .scroll-progress{
+    position:fixed; top:0; left:0; right:0; height:1px; z-index:90;
+    background:transparent; pointer-events:none;
+  }
+  .scroll-progress i{
+    display:block; height:100%; width:0%;
+    background:linear-gradient(90deg, var(--gold-dim), var(--gold-bright));
+  }
+
+  /* ---------- entrance choreography ---------- */
+  @keyframes riseMask{
+    0%{ opacity:0; transform:translateY(46px); clip-path:inset(0 0 100% 0); }
+    100%{ opacity:1; transform:translateY(0); clip-path:inset(0 0 0 0); }
+  }
+  @keyframes fadeOnly{
+    0%{ opacity:0; } 100%{ opacity:1; }
+  }
+  /* fill-mode "backwards": the mask only exists while the entrance plays.
+     Once finished, no clip-path remains on the element, so italic overhangs
+     and descenders (the "g" of "exigence") are never cut off. */
+  .stage{ animation:riseMask var(--dur-l) var(--ease) backwards; }
+  .stage-fade{ opacity:0; animation:fadeOnly var(--dur-l) var(--ease) both; }
+  .st1{ animation-delay:.15s; } .st2{ animation-delay:.45s; }
+  .st3{ animation-delay:.75s; } .st4{ animation-delay:1.05s; }
+  .st5{ animation-delay:1.35s; } .st6{ animation-delay:1.7s; }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(38px) scale(.985);
+    /* negative insets leave room for serif descenders / italic overhang */
+    clip-path:inset(-12% -6% 14% -6%);
+    transition:
+      opacity var(--dur-m) var(--ease),
+      transform var(--dur-m) var(--ease),
+      clip-path var(--dur-m) var(--ease);
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    clip-path:inset(-12% -6% -12% -6%);
+  }
+  .reveal.d1{ transition-delay:90ms; }
+  .reveal.d2{ transition-delay:180ms; }
+  .reveal.d3{ transition-delay:270ms; }
+  .reveal.d4{ transition-delay:360ms; }
+
+  /* hairline that draws itself */
+  .draw-line{
+    transform-origin:left center;
+    transform:scaleX(0);
+    transition:transform var(--dur-l) var(--ease) .2s;
+  }
+  .in .draw-line, .draw-line.in{ transform:scaleX(1); }
+
+  /* ---------- nav ---------- */
+  header.site-nav{
+    position:fixed; inset:0 0 auto 0;
+    z-index:80;
+    padding:26px var(--gutter-r) 26px var(--gutter-l);
+    display:flex; align-items:center; justify-content:space-between;
+    transition:padding var(--dur-s) var(--ease), background var(--dur-s) var(--ease), border-color var(--dur-s) var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  header.site-nav.scrolled{
+    padding-top:16px; padding-bottom:16px;
+    background:rgba(7,22,38,.78);
+    backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-mark{ width:30px; height:30px; flex:none; transition:transform var(--dur-s) var(--ease); }
+  .nav-left{ display:flex; align-items:center; gap:14px; min-width:0; position:relative; z-index:2; }
+  .nav-left:hover .nav-mark{ transform:rotate(90deg); }
+  /* wordmark + tagline lockup */
+  .nav-lockup{
+    display:flex; flex-direction:column; justify-content:center; gap:6px;
+    padding-left:14px; border-left:1px solid var(--line);
+    line-height:1; white-space:nowrap;
+  }
+  .nav-name{
+    font-family:'Playfair Display',serif; font-weight:700;
+    font-size:14px; letter-spacing:.22em; line-height:1; color:var(--cream);
+  }
+  .nav-tag{
+    font-family:'Playfair Display',serif; font-style:italic; font-weight:500;
+    font-size:11.5px; letter-spacing:.06em; line-height:1; color:var(--gold);
+  }
+  .nav-links{
+    display:flex; align-items:center; gap:clamp(22px,3vw,44px);
+    list-style:none; margin:0; padding:0;
+  }
+  .nav-links a{
+    font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+    font-weight:500; color:var(--cream-dim); white-space:nowrap;
+    position:relative; padding-bottom:6px;
+    transition:color var(--dur-s) var(--ease);
+  }
+  .nav-links a:hover{ color:var(--gold-bright); }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; right:100%; bottom:0; height:1px;
+    background:var(--gold); transition:right var(--dur-s) var(--ease-soft);
+  }
+  .nav-links a:hover::after, .nav-links a:focus-visible::after{ right:0; }
+  .nav-right{ display:flex; align-items:center; gap:28px; }
+  .lang-switch{ display:flex; align-items:center; gap:9px; font-size:11px; letter-spacing:.12em; }
+  .lang-switch button{ opacity:.5; transition:opacity var(--dur-s) var(--ease), color var(--dur-s) var(--ease); padding:2px; }
+  .lang-switch button.active,.lang-switch button:hover{ opacity:1; color:var(--gold-bright); }
+  .lang-switch span{ opacity:.3; }
+  .nav-cta{
+    font-size:11px; letter-spacing:.24em; text-transform:uppercase; font-weight:500;
+    border:1px solid var(--line); padding:10px 20px; border-radius:1px; white-space:nowrap;
+    transition:border-color var(--dur-s) var(--ease), background var(--dur-s) var(--ease), color var(--dur-s) var(--ease);
+  }
+  .nav-cta:hover{ border-color:var(--gold); background:var(--gold); color:var(--navy); }
+
+  /* burger — two fine hairlines in a 44px tap target, morphs into a cross */
+  .nav-burger{
+    display:none; flex:none; width:44px; height:44px; margin-right:-10px;
+    position:relative; z-index:2; -webkit-tap-highlight-color:transparent;
+  }
+  .nav-burger span{
+    position:absolute; right:10px; height:1px; width:var(--bw);
+    transition:transform .45s var(--ease), width .45s var(--ease), background .45s var(--ease);
+  }
+  .nav-burger span:nth-child(1){ top:calc(50% - 4px); background:var(--cream); }
+  .nav-burger span:nth-child(2){ top:calc(50% + 3px); width:calc(var(--bw) * .62); background:var(--gold); }
+  body.menu-open .nav-burger span:nth-child(1){ transform:translateY(3.5px) rotate(45deg); }
+  body.menu-open .nav-burger span:nth-child(2){ width:var(--bw); background:var(--cream); transform:translateY(-3.5px) rotate(-45deg); }
+
+  /* drawer */
+  .mobile-drawer{
+    position:fixed; inset:0; z-index:70;
+    background:
+      radial-gradient(90% 55% at 100% 0%, rgba(198,161,91,.10), transparent 60%),
+      var(--navy-deep);
+    display:flex; flex-direction:column;
+    padding:calc(var(--nav-py) * 2 + var(--mark) + clamp(28px, 6svh, 56px) + env(safe-area-inset-top)) var(--gutter-r)
+            calc(clamp(20px, 4svh, 36px) + env(safe-area-inset-bottom)) var(--gutter-l);
+    overflow-y:auto; overscroll-behavior:contain;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity var(--dur-s) var(--ease), visibility 0s linear var(--dur-s);
+  }
+  body.menu-open .mobile-drawer{
+    opacity:1; visibility:visible; pointer-events:auto;
+    transition:opacity var(--dur-s) var(--ease), visibility 0s;
+  }
+  .drawer-nav{ display:flex; flex-direction:column; border-top:1px solid var(--line-soft); }
+  .drawer-nav a{
+    display:grid; grid-template-columns:clamp(30px, 7vw, 52px) 1fr auto; align-items:baseline;
+    padding:clamp(14px, 2.6svh, 24px) 0; border-bottom:1px solid var(--line-soft);
+    font-family:'Playfair Display',serif; font-weight:500; font-size:clamp(1.5rem, 1rem + 3vw, 2.6rem); line-height:1.15;
+    color:var(--cream);
+    opacity:0; transform:translateY(14px);
+    transition:opacity .6s var(--ease), transform .6s var(--ease), color var(--dur-s) var(--ease);
+  }
+  .drawer-nav a .dn-idx{
+    font-family:'Montserrat',sans-serif; font-style:normal; font-weight:500;
+    font-size:10px; letter-spacing:.2em; color:var(--gold-dim); transform:translateY(-3px);
+  }
+  .drawer-nav a::after{
+    content:''; width:14px; height:1px; background:var(--gold); align-self:center;
+    transform-origin:right center; transform:scaleX(.6); opacity:.6;
+    transition:transform var(--dur-s) var(--ease), opacity var(--dur-s) var(--ease);
+  }
+  .drawer-nav a:active, .drawer-nav a:hover{ color:var(--gold-bright); }
+  .drawer-nav a:hover::after, .drawer-nav a:active::after{ transform:scaleX(1.6); opacity:1; }
+  body.menu-open .drawer-nav a{ opacity:1; transform:none; }
+  body.menu-open .drawer-nav a:nth-child(1){ transition-delay:.06s; }
+  body.menu-open .drawer-nav a:nth-child(2){ transition-delay:.11s; }
+  body.menu-open .drawer-nav a:nth-child(3){ transition-delay:.16s; }
+  body.menu-open .drawer-nav a:nth-child(4){ transition-delay:.21s; }
+  body.menu-open .drawer-nav a:nth-child(5){ transition-delay:.26s; }
+
+  .drawer-foot{
+    margin-top:auto; padding-top:clamp(28px, 5svh, 48px);
+    display:flex; flex-direction:column; gap:clamp(18px, 3svh, 26px);
+    opacity:0; transition:opacity .6s var(--ease) .3s;
+  }
+  body.menu-open .drawer-foot{ opacity:1; }
+  .drawer-cta{
+    display:block; text-align:center;
+    font-size:11px; letter-spacing:.24em; text-transform:uppercase; font-weight:500;
+    color:var(--gold-bright); border:1px solid var(--gold); padding:17px 20px; border-radius:1px;
+    transition:background var(--dur-s) var(--ease), color var(--dur-s) var(--ease);
+  }
+  .drawer-cta:active, .drawer-cta:hover{ background:var(--gold); color:var(--navy); }
+  .drawer-meta{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .drawer-meta .lang-switch{ font-size:12px; gap:4px; }
+  .drawer-meta .lang-switch button{ padding:10px 6px; min-width:36px; }
+  .drawer-meta .lang-switch button:first-child{ padding-left:0; min-width:0; }
+  .drawer-place{
+    font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--cream-dim); opacity:.55;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 82% 18%, rgba(198,161,91,.14), transparent 60%),
+      radial-gradient(90% 70% at 10% 100%, rgba(198,161,91,.08), transparent 55%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy) 55%, var(--navy-deep) 100%);
+  }
+  .hero-grain{
+    position:absolute; inset:0; pointer-events:none; z-index:2; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  /* guilloche backdrop — engraved plate feel, extremely subtle */
+  .hero-guilloche{
+    position:absolute; z-index:0; pointer-events:none;
+    right:-12vmin; top:50%; transform:translateY(-50%);
+    width:92vmin; height:92vmin; opacity:.055;
+    animation:guillocheSpin 260s linear infinite;
+  }
+  @keyframes guillocheSpin{ to{ transform:translateY(-50%) rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .hero-guilloche{ animation:none; } }
+
+  /* ---------- 3D coin (CSS, drag + inertia) ---------- */
+  .coin-stage{
+    --d:clamp(230px, 28vw, 420px);          /* coin diameter */
+    --t:calc(var(--d) * .07);               /* coin thickness */
+    position:absolute; z-index:1; top:0; bottom:0;
+    right:clamp(16px,6vw,110px);
+    width:calc(var(--d) * 1.35);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+  }
+  .coin-glow{
+    position:absolute; left:50%; top:50%;
+    width:calc(var(--d) * 1.95); height:calc(var(--d) * 1.95);
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(198,161,91,.24) 0%, rgba(198,161,91,.06) 45%, transparent 72%);
+    filter:blur(6px); pointer-events:none; z-index:0;
+  }
+  .coin3d-stage{
+    position:relative; z-index:1;
+    width:calc(var(--d) * 1.3); height:calc(var(--d) * 1.3);
+    display:grid; place-items:center; perspective:1100px;
+    touch-action:pan-y; cursor:grab; user-select:none; -webkit-user-select:none;
+  }
+  .coin3d-stage.dragging{ cursor:grabbing; }
+  .coin3d{
+    position:relative; width:var(--d); height:var(--d);
+    transform-style:preserve-3d;
+    transform:rotateX(var(--rx,-12deg)) rotateY(var(--ry,0deg));
+    will-change:transform;
+  }
+  .c-shadow{
+    position:absolute; left:50%; bottom:0; width:var(--d); height:calc(var(--d)*.16);
+    transform:translateX(-50%) scaleX(var(--sh,1)); border-radius:50%;
+    background:radial-gradient(ellipse, rgba(0,0,0,.55), transparent 68%); filter:blur(8px); pointer-events:none;
+  }
+
+  /* faces */
+  .c-face{
+    position:absolute; inset:0; border-radius:50%; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    background:
+      radial-gradient(circle at 32% 26%, rgba(255,247,205,.75) 0, rgba(255,247,205,0) 34%),
+      radial-gradient(circle at 70% 78%, rgba(90,58,8,.35) 0, rgba(90,58,8,0) 45%),
+      conic-gradient(from var(--a,0deg),
+        #8a6519, #e9c766, #b98b2b, #fff1b8, #a67a20, #e2be5c, #7a5715, #f4d97f, #8a6519);
+  }
+  .c-front{ transform:translateZ(calc(var(--t)/2)); }
+  .c-back { transform:rotateY(180deg) translateZ(calc(var(--t)/2)); --a:var(--a2,0deg); }
+
+  /* raised rim: bevel highlights + shadows */
+  .c-face::before{
+    content:""; position:absolute; inset:0; border-radius:50%;
+    box-shadow:
+      inset 0 0 0 1.5px rgba(70,45,5,.65),
+      inset 0 0 0 calc(var(--d)*.032) rgba(255,232,150,.28),
+      inset 0 0 0 calc(var(--d)*.036) rgba(70,45,5,.55),
+      inset 2px 3px 6px calc(var(--d)*.03) rgba(255,246,200,.35),
+      inset -3px -4px 8px calc(var(--d)*.03) rgba(60,38,4,.45);
+  }
+  /* recessed field: fine guilloché + brushed radial finish */
+  .c-face::after{
+    content:""; position:absolute; inset:calc(var(--d)*.05); border-radius:50%;
+    background:
+      repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,.07) 0 .6px, rgba(0,0,0,.06) .6px 1.6px),
+      repeating-conic-gradient(from 0deg, rgba(0,0,0,.035) 0 .4deg, rgba(255,255,255,.045) .4deg .8deg);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,236,160,.35),
+      inset 0 2px 5px rgba(60,38,4,.55),
+      inset 0 -2px 4px rgba(255,240,180,.3);
+    mix-blend-mode:multiply;
+  }
+  .c-face svg{ position:absolute; inset:0; width:100%; height:100%; max-width:none; z-index:2; overflow:visible;
+    filter:drop-shadow(0 .8px 0 rgba(255,238,175,.75)) drop-shadow(0 -.6px 0 rgba(60,38,4,.45)); }
+  .c-face svg text{ fill:#6a4a0f; font-family:'Playfair Display',Didot,'Times New Roman',Georgia,serif; font-weight:900; }
+  .c-face svg .t2{ font-family:'Montserrat','Helvetica Neue',Arial,sans-serif; font-weight:500; }
+  .c-face svg circle.bead{ fill:none; stroke:#6a4a0f; stroke-width:2.4; stroke-dasharray:.1 6.2; stroke-linecap:round; opacity:.7; }
+  .c-face svg circle.hair{ fill:none; stroke:#6a4a0f; stroke-width:.8; opacity:.6; }
+
+  /* specular glint that slides across on rotation */
+  .c-glint{
+    position:absolute; inset:0; border-radius:50%; z-index:3; pointer-events:none; mix-blend-mode:soft-light;
+    background:linear-gradient(115deg, transparent calc(var(--g,50%) - 14%), rgba(255,255,255,.85) var(--g,50%), transparent calc(var(--g,50%) + 14%));
+  }
+
+  /* reeded edge (facets built in JS) */
+  .c-seg{
+    position:absolute; left:50%; top:50%; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    background:linear-gradient(90deg,#5c400c 0%,#e2bd5a 38%,#fff0b0 50%,#c79a34 62%,#5c400c 100%);
+  }
+
+  .coin-meta{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .rotation-readout{
+    display:flex; align-items:baseline; gap:8px;
+    font-size:11px; letter-spacing:.18em; color:var(--gold-dim); opacity:.85;
+  }
+  .rotation-readout b{ color:var(--gold-bright); font-weight:500; font-variant-numeric:tabular-nums; letter-spacing:.05em; }
+  .drag-hint{
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--cream-dim);
+    opacity:.55; transition:opacity var(--dur-m) var(--ease);
+  }
+  .drag-hint.hide{ opacity:0; }
+  .hero-lockup{ width:min(80vw,600px); height:auto; margin-bottom:30px; }
+  .hero-lockup svg{ width:100%; height:auto; }
+  .hero-line{
+    font-family:'Playfair Display',serif; font-style:italic; font-weight:500;
+    font-size:clamp(19px,2.2vw,26px); color:var(--cream-dim);
+    max-width:30ch; line-height:1.5; margin:0 0 44px 2px;
+  }
+  .hero-actions{ display:flex; align-items:center; gap:clamp(28px,4vw,54px); flex-wrap:wrap; }
+  .hero-actions a{
+    position:relative; font-size:12px; letter-spacing:.26em; text-transform:uppercase; font-weight:500;
+    padding-bottom:10px;
+  }
+  .hero-actions a span{ position:relative; z-index:1; }
+  .hero-actions a::after{
+    content:''; position:absolute; left:0; bottom:0; height:1px; width:100%;
+    background:var(--line);
+  }
+  .hero-actions a::before{
+    content:''; position:absolute; left:0; bottom:0; height:1px; width:0%;
+    background:var(--gold); transition:width var(--dur-s) var(--ease-soft);
+  }
+  .hero-actions a:hover::before, .hero-actions a:focus-visible::before{ width:100%; }
+  .hero-actions a.primary{ color:var(--gold-bright); }
+
+  .scroll-cue{
+    position:absolute; left:var(--gutter-l); bottom:38px; z-index:2;
+    display:flex; align-items:center; gap:14px;
+    font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--cream-dim);
+    opacity:0;
+  }
+  .scroll-cue.on{ opacity:.6; transition:opacity var(--dur-l) var(--ease); }
+  .scroll-cue .line{ width:38px; height:1px; background:var(--line); position:relative; overflow:hidden; }
+  .scroll-cue .line::after{
+    content:''; position:absolute; left:-100%; top:0; bottom:0; width:100%;
+    background:var(--gold); animation:cueMove 2.6s var(--ease-soft) infinite;
+  }
+  @keyframes cueMove{ 0%{left:-100%;} 55%{left:100%;} 100%{left:100%;} }
+  @media (prefers-reduced-motion: reduce){ .scroll-cue .line::after{ animation:none; left:0; } }
+
+  /* ---------- hero copy ---------- */
+  .hero{ padding:120px 0 110px; }
+  .hero-body{
+    position:relative; z-index:2;
+    padding:0 var(--gutter-r) 0 var(--gutter-l);
+    margin-top:auto; margin-bottom:auto;
+    max-width:min(820px, 56vw);
+  }
+  .hero-lockup{ width:min(100%, 560px); margin-bottom:34px; }
+  .hero-eyebrow{ margin:0 0 22px 2px; }
+  .hero-title{
+    font-size:clamp(38px,4.6vw,68px); line-height:1.1; letter-spacing:-.01em; color:var(--cream);
+    margin:0 0 20px; padding-bottom:.08em; overflow:visible;
+  }
+  .hero-title em{ font-style:italic; font-weight:500; color:var(--gold-bright); }
+  .hero-lede{
+    font-size:clamp(15px,1.2vw,17px); line-height:1.85; color:var(--cream-dim);
+    max-width:54ch; margin:0 0 42px 2px;
+  }
+
+  /* ---------- section heads ---------- */
+  .sec-head{ margin-bottom:var(--head-gap); max-width:760px; }
+  .sec-head h2{ font-size:clamp(34px,4.4vw,58px); line-height:1.08; letter-spacing:-.01em; margin-top:22px; }
+
+  /* ---------- trust band ---------- */
+  .trust{ background:var(--navy-deep); border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); }
+  .trust-list{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); }
+  .trust-list li{ padding:clamp(22px, 2vw + 16px, 54px) clamp(18px,2.4vw,36px); border-left:1px solid var(--line-soft); }
+  .trust-list li:first-child{ border-left:none; padding-left:0; }
+  .trust-list h3{ font-size:clamp(19px,1.6vw,23px); font-style:italic; font-weight:500; color:var(--gold-bright); margin-bottom:12px; }
+  .trust-list p{ margin:0; font-size:13.5px; line-height:1.75; color:var(--cream-dim); }
+
+  /* ---------- services (4 panels) ---------- */
+  .services-head{ padding-top:var(--section-y); }
+  .services-foot{ padding-top:clamp(28px, 2vw + 20px, 56px); padding-bottom:var(--section-y); }
+  .service-panel p{ margin-bottom:0; }
+
+  /* ---------- method ---------- */
+  .method-grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(24px,3vw,48px); }
+  .method-grid li{ border-top:1px solid var(--line); padding-top:28px; position:relative; }
+  .method-grid li::before{
+    content:''; position:absolute; top:-1px; left:0; width:38px; height:1px; background:var(--gold-bright);
+  }
+  .method-num{
+    display:block; font-family:'Playfair Display',serif; font-style:italic; font-weight:500;
+    font-size:clamp(44px,4.4vw,64px); line-height:1; color:transparent;
+    -webkit-text-stroke:1px rgba(198,161,91,.55); margin-bottom:22px;
+  }
+  .method-grid h3{ font-size:clamp(21px,1.8vw,26px); margin-bottom:14px; }
+  .method-grid p{ margin:0; font-size:14px; line-height:1.8; color:var(--cream-dim); }
+
+  /* ---------- audience ---------- */
+  .audience-list{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:0 clamp(40px,6vw,100px); }
+  .audience-list li{
+    display:grid; grid-template-columns:auto 1fr; gap:20px; align-items:baseline;
+    padding:clamp(20px, 1.5vw + 14px, 30px) 0; border-top:1px solid rgba(11,31,58,.14);
+  }
+  .audience-list li .mk{ width:10px; height:10px; transform:translateY(1px); }
+  .audience-list p{ margin:0; font-size:15px; line-height:1.8; color:#3a4a68; }
+  .audience-list p strong{
+    display:block; font-family:'Playfair Display',serif; font-style:italic; font-weight:500;
+    font-size:clamp(22px,2.2vw,28px); color:var(--navy); margin-bottom:6px;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-grid{ display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(40px,6vw,120px); align-items:start; }
+  .faq-list{ border-top:1px solid var(--line-soft); }
+  .faq-list details{ border-bottom:1px solid var(--line-soft); }
+  .faq-list summary{
+    list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:24px;
+    padding:26px 0; font-family:'Playfair Display',serif; font-size:clamp(18px,1.6vw,22px); font-weight:500;
+    transition:color var(--dur-s) var(--ease);
+  }
+  .faq-list summary::-webkit-details-marker{ display:none; }
+  .faq-list summary:hover{ color:var(--gold-bright); }
+  .faq-list summary i{ position:relative; flex:none; width:14px; height:14px; }
+  .faq-list summary i::before, .faq-list summary i::after{
+    content:''; position:absolute; left:0; right:0; top:50%; height:1px; background:var(--gold);
+    transition:transform var(--dur-s) var(--ease);
+  }
+  .faq-list summary i::after{ transform:rotate(90deg); }
+  .faq-list details[open] summary i::after{ transform:rotate(0deg); }
+  .faq-list details p{ margin:0; padding:0 40px 28px 0; font-size:14.5px; line-height:1.85; color:var(--cream-dim); max-width:62ch; }
+
+  /* ---------- contact ---------- */
+  #contact{ background:var(--navy-deep); border-top:1px solid var(--line-soft); }
+  .contact-lede{ font-size:15px; line-height:1.85; color:var(--cream-dim); max-width:42ch; margin:0; }
+  .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:26px 32px; }
+  .form-grid .full{ grid-column:1 / -1; }
+  .field label .opt{ color:rgba(246,241,231,.38); letter-spacing:.14em; margin-left:6px; }
+  .field label .req{ color:var(--gold-bright); margin-left:3px; }
+  .field select{
+    width:100%; appearance:none; -webkit-appearance:none; background:transparent; border:none; border-bottom:1px solid var(--line);
+    color:var(--cream); font-family:'Montserrat',sans-serif; font-weight:300; font-size:15px;
+    padding:8px 26px 12px 2px; border-radius:0; transition:border-color var(--dur-s) var(--ease);
+    background-image:linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+    background-position:calc(100% - 10px) 50%, calc(100% - 5px) 50%; background-size:5px 5px, 5px 5px; background-repeat:no-repeat;
+  }
+  .field select:focus{ border-color:var(--gold); outline:none; }
+  .field select option{ background:var(--navy-deep); color:var(--cream); }
+
+  /* custom select — replaces the OS dropdown with one drawn in the site's style.
+     The native <select> stays in the form (hidden) and keeps the value. */
+  .cselect{ position:relative; }
+  .cselect select{ display:none; }
+  .cselect-btn{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    background:transparent; border:none; border-bottom:1px solid var(--line); border-radius:0;
+    color:var(--cream); font-family:'Montserrat',sans-serif; font-weight:300; font-size:15px; line-height:1.4;
+    padding:8px 2px 12px; text-align:left; cursor:pointer;
+    transition:border-color var(--dur-s) var(--ease);
+  }
+  .cselect-btn:hover, .cselect.open .cselect-btn{ border-color:var(--gold); }
+  .cselect-btn:focus-visible{ outline:none; border-color:var(--gold-bright); }
+  .cselect-value{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .cselect-value.is-placeholder{ color:rgba(246,241,231,.38); }
+  .cselect-arrow{
+    flex:none; width:7px; height:7px; margin:0 4px 4px 0;
+    border-right:1px solid var(--gold); border-bottom:1px solid var(--gold);
+    transform:rotate(45deg); transition:transform var(--dur-s) var(--ease), margin var(--dur-s) var(--ease);
+  }
+  .cselect.open .cselect-arrow{ transform:rotate(-135deg); margin:4px 4px 0 0; }
+  .cselect-list{
+    position:absolute; left:0; right:0; top:calc(100% + 6px); z-index:30;
+    margin:0; padding:6px 0; list-style:none;
+    background:var(--navy-deep); border:1px solid var(--line);
+    box-shadow:0 18px 40px rgba(3,10,20,.55);
+    max-height:min(280px, 50vh); overflow-y:auto; overscroll-behavior:contain;
+    opacity:0; visibility:hidden; transform:translateY(-6px);
+    transition:opacity .25s var(--ease), transform .25s var(--ease), visibility 0s linear .25s;
+  }
+  .cselect.up .cselect-list{ top:auto; bottom:calc(100% + 6px); transform:translateY(6px); }
+  .cselect.open .cselect-list{
+    opacity:1; visibility:visible; transform:none;
+    transition:opacity .25s var(--ease), transform .25s var(--ease), visibility 0s;
+  }
+  .cselect-list li{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    padding:12px 16px; cursor:pointer;
+    font-size:14px; font-weight:300; line-height:1.4; color:var(--cream-dim);
+    transition:background .2s var(--ease), color .2s var(--ease);
+  }
+  .cselect-list li + li{ border-top:1px solid var(--line-soft); }
+  .cselect-list li.active{ background:rgba(198,161,91,.1); color:var(--cream); }
+  .cselect-list li[aria-selected="true"]{ color:var(--gold-bright); }
+  /* the site's diamond motif marks the chosen option */
+  .cselect-list li::after{
+    content:''; flex:none; width:7px; height:7px; border:1px solid var(--gold);
+    transform:rotate(45deg) scale(.4); opacity:0;
+    transition:transform .25s var(--ease), opacity .25s var(--ease);
+  }
+  .cselect-list li[aria-selected="true"]::after{ opacity:1; transform:rotate(45deg) scale(1); background:var(--gold); }
+  .consent{ display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:start; font-size:12.5px; line-height:1.7; color:var(--cream-dim); cursor:pointer; }
+  .consent input{
+    appearance:none; -webkit-appearance:none; width:16px; height:16px; margin:3px 0 0; border:1px solid var(--gold); border-radius:1px;
+    display:grid; place-items:center; cursor:pointer; background:transparent;
+  }
+  .consent input::after{ content:''; width:8px; height:8px; background:var(--gold-bright); transform:scale(0); transition:transform .2s var(--ease); }
+  .consent input:checked::after{ transform:scale(1); }
+  .form-actions{ display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
+  .form-note{ font-size:11px; letter-spacing:.08em; color:rgba(246,241,231,.5); }
+  .form-done{ display:none; border:1px solid var(--line); padding:34px 32px; font-family:'Playfair Display',serif; font-size:clamp(19px,1.7vw,23px); line-height:1.6; color:var(--cream); }
+  .contact-form.sent > *:not(.form-done){ display:none; }
+  .contact-form.sent .form-done{ display:block; }
+
+  /* ---------- footer ---------- */
+  .footer-risk{ padding:34px 0 0; margin:0; font-size:11.5px; line-height:1.85; color:rgba(246,241,231,.5); max-width:110ch; }
+</style>
+<style>
+  /* ---------- section shell ---------- */
+  section{ position:relative; }
+  .band{ padding:var(--section-y) 0; }
+  .band-light{ background:var(--cream); color:var(--navy); }
+  .band-dark{ background:linear-gradient(180deg,var(--navy-deep),var(--navy)); color:var(--cream); }
+  .band-light .eyebrow{ color:var(--gold-dim); }
+
+  /* ---------- La Maison ---------- */
+  .maison-grid{
+    display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(40px,6vw,120px);
+    align-items:start;
+  }
+  .maison-grid h2{
+    font-size:clamp(34px,4.6vw,60px); line-height:1.08; letter-spacing:-.01em;
+    margin-top:22px;
+  }
+  .maison-copy{
+    font-size:clamp(15px,1.15vw,17px); line-height:1.85; font-weight:300; color:#2c3c58;
+    max-width:52ch; margin-top:22px;
+  }
+  .maison-copy strong{ font-weight:500; color:var(--navy); }
+  .maison-figures{
+    margin-top:52px; display:grid; grid-template-columns:repeat(3,auto); gap:clamp(24px,4vw,60px);
+    border-top:1px solid rgba(11,31,58,.14); padding-top:28px;
+    position:relative;
+  }
+  .maison-figures::before{
+    content:''; position:absolute; top:-1px; left:0; height:1px; width:100%;
+    background:var(--gold); transform-origin:left center; transform:scaleX(0);
+    transition:transform 1600ms var(--ease) .35s;
+  }
+  .maison-figures.in::before{ transform:scaleX(1); }
+  .maison-figures div b{
+    display:block; font-family:'Playfair Display',serif; font-size:clamp(24px,2.4vw,32px); font-weight:600;
+    color:var(--navy); font-variant-numeric:tabular-nums;
+  }
+  .maison-figures div span{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-dim); }
+
+  /* ---------- services ---------- */
+  .services-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-soft); }
+  .service-panel{
+    background:var(--navy); padding:clamp(40px, 5vw + 20px, 96px) clamp(28px,4.5vw,64px);
+    position:relative; overflow:hidden;
+  }
+  /* cursor spotlight */
+  .service-panel::after{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(340px circle at var(--sx,50%) var(--sy,50%), rgba(198,161,91,.13), transparent 65%);
+    opacity:0; transition:opacity var(--dur-m) var(--ease);
+  }
+  .service-panel:hover::after{ opacity:1; }
+  .service-panel::before{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(150deg, rgba(198,161,91,.08), transparent 55%);
+    opacity:0; transition:opacity var(--dur-m) var(--ease);
+  }
+  .service-panel:hover::before{ opacity:1; }
+  .service-ghost{
+    position:absolute; top:clamp(18px,3vw,36px); right:clamp(18px,3vw,40px);
+    font-family:'Playfair Display',serif; font-style:italic; font-weight:500;
+    font-size:clamp(72px,9vw,130px); line-height:1; color:transparent;
+    -webkit-text-stroke:1px rgba(198,161,91,.28);
+    pointer-events:none; user-select:none;
+    transition:color var(--dur-l) var(--ease), -webkit-text-stroke-color var(--dur-l) var(--ease);
+  }
+  .service-panel:hover .service-ghost{
+    color:rgba(198,161,91,.07);
+    -webkit-text-stroke-color:rgba(198,161,91,.5);
+  }
+  .service-num{
+    font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--gold-dim);
+    letter-spacing:.1em; margin-bottom:26px; display:block;
+    position:relative; z-index:1;
+  }
+  .service-panel h3{
+    font-size:clamp(30px,3.2vw,44px); margin-bottom:20px; letter-spacing:-.01em;
+    position:relative; z-index:1;
+  }
+  .service-panel p{
+    font-size:14.5px; line-height:1.85; color:var(--cream-dim); max-width:42ch; margin:0 0 34px;
+    position:relative; z-index:1;
+  }
+  /* Services CTA — same outlined gold button as "Envoyer ma demande" */
+  a.service-cta{
+    display:inline-flex; align-items:center; justify-content:center; text-align:center;
+    font-size:11px; letter-spacing:.24em; text-transform:uppercase; font-weight:500; line-height:1.5;
+    border:1px solid var(--gold); color:var(--gold-bright); background:transparent;
+    padding:15px 34px; border-radius:1px;
+    position:relative; z-index:1;
+    transition:background var(--dur-s) var(--ease), color var(--dur-s) var(--ease);
+  }
+  a.service-cta:hover, a.service-cta:focus-visible{ background:var(--gold); color:var(--navy); }
+
+  /* ---------- valeurs ---------- */
+  .valeurs-list{ list-style:none; margin:var(--head-gap) 0 0; padding:0; }
+  .valeurs-list li{
+    display:grid; grid-template-columns:auto 1.1fr 2fr; gap:clamp(18px,4vw,80px);
+    align-items:baseline; padding:clamp(20px, 1.5vw + 14px, 30px) 0; border-top:1px solid rgba(11,31,58,.14);
+  }
+  .valeurs-list li:last-child{ border-bottom:1px solid rgba(11,31,58,.14); }
+  .valeurs-idx{
+    font-family:'Montserrat',sans-serif; font-weight:500; font-size:10px;
+    letter-spacing:.2em; color:var(--gold-dim); min-width:2.4em;
+  }
+  .valeurs-list h3{
+    font-size:clamp(24px,2.6vw,34px); font-style:italic; font-weight:500; color:var(--navy);
+    transition:letter-spacing var(--dur-s) var(--ease-soft), color var(--dur-s) var(--ease);
+  }
+  .valeurs-list li:hover h3{ letter-spacing:.04em; color:#000; }
+  .valeurs-list p{ font-size:14.5px; line-height:1.85; color:#3a4a68; max-width:56ch; margin:0; font-weight:300; }
+
+  /* ---------- contact ---------- */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(50px,7vw,120px); }
+  .contact-info h2{ font-size:clamp(34px,4.4vw,58px); line-height:1.1; margin-bottom:28px; }
+  .contact-lines{ display:flex; flex-direction:column; gap:14px; margin-bottom:44px; }
+  .contact-lines a, .contact-lines span{
+    font-size:14px; letter-spacing:.04em; color:var(--cream-dim); font-weight:300;
+  }
+  .contact-lines a{ position:relative; width:fit-content; }
+  .contact-lines a::after{
+    content:''; position:absolute; left:0; bottom:-3px; height:1px; width:0%;
+    background:var(--gold); transition:width var(--dur-s) var(--ease-soft);
+  }
+  .contact-lines a:hover::after{ width:100%; }
+  .contact-hours{ font-size:11px; letter-spacing:.14em; color:var(--gold-dim); text-transform:uppercase; }
+
+  form.contact-form{ display:flex; flex-direction:column; gap:26px; }
+  .field{ position:relative; }
+  .field label{
+    display:block; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:10px;
+  }
+  .field input, .field textarea{
+    width:100%; background:transparent; border:none; border-bottom:1px solid var(--line);
+    color:var(--cream); font-family:'Montserrat',sans-serif; font-weight:300; font-size:15px;
+    padding:8px 2px 12px; transition:border-color var(--dur-s) var(--ease);
+  }
+  .field input:focus, .field textarea:focus{ border-color:var(--gold); outline:none; }
+  .field textarea{ resize:vertical; min-height:70px; }
+  .submit-btn{
+    align-self:flex-start; margin-top:6px;
+    font-size:11px; letter-spacing:.24em; text-transform:uppercase; font-weight:500;
+    border:1px solid var(--gold); color:var(--gold-bright); padding:15px 34px; border-radius:1px; line-height:1.5;
+    transition:background var(--dur-s) var(--ease), color var(--dur-s) var(--ease);
+  }
+  .submit-btn:hover, .submit-btn:focus-visible{ background:var(--gold); color:var(--navy); }
+  .form-note{ font-size:10px; letter-spacing:.1em; color:rgba(246,241,231,.4); margin:0; }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--navy-deep); padding:clamp(48px, 4vw + 30px, 70px) 0 30px; border-top:1px solid var(--line-soft);
+  }
+  .footer-top{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:30px;
+    padding-bottom:44px; border-bottom:1px solid var(--line-soft);
+  }
+  .footer-mark{ display:flex; align-items:center; gap:14px; }
+  .footer-mark svg{ width:26px; height:26px; flex:none; }
+  .footer-mark .nav-lockup{ padding-left:14px; }
+  .footer-mark .nav-name{ font-size:13px; letter-spacing:.2em; font-weight:600; }
+  .footer-mark .nav-tag{ font-size:11px; }
+  .footer-links{ display:flex; gap:34px; flex-wrap:wrap; list-style:none; margin:0; padding:0; }
+  .footer-links a{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--cream-dim); }
+  .footer-links a:hover{ color:var(--gold-bright); }
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    padding-top:26px; font-size:10px; letter-spacing:.08em; color:rgba(246,241,231,.35);
+  }
+
+  /* ---------- magnetic ---------- */
+  .magnet{ display:inline-block; }
+
+  /* =====================================================================
+     RESPONSIVE SYSTEM
+     Breakpoints
+       ≤1320px  compact header (burger)          ≤1100px  small laptop
+       ≤980px   tablet — hero stacks             ≤767px   phablet / large phone
+       ≤480px   phone                            ≤374px   small phone
+       landscape phones: (orientation:landscape) and (max-height:560px)
+     Between breakpoints every size is fluid (clamp + vw / svh / rem),
+     so nothing is tuned to one screen width.
+     ===================================================================== */
+
+  @media (max-width: 1100px){
+    .trust-list{ grid-template-columns:1fr 1fr; }
+    .trust-list li:nth-child(3){ border-left:none; padding-left:0; }
+    .trust-list li:nth-child(n+3){ border-top:1px solid var(--line-soft); }
+    .method-grid{ grid-template-columns:1fr 1fr; row-gap:clamp(28px, 4vw, 48px); }
+  }
+
+  /* ---------- compact header: ≤1320px ---------- */
+  @media (max-width: 1320px){
+    .nav-links, .nav-right .lang-switch, .nav-cta{ display:none; }
+    .nav-burger{ display:block; }
+
+    header.site-nav{
+      padding:calc(var(--nav-py) + env(safe-area-inset-top)) var(--gutter-r) var(--nav-py) var(--gutter-l);
+    }
+    header.site-nav.scrolled{
+      padding-top:calc(var(--nav-py) * .65 + env(safe-area-inset-top));
+      padding-bottom:calc(var(--nav-py) * .65);
+      background:rgba(7,22,38,.9);
+    }
+    body.menu-open header.site-nav{
+      background:transparent; backdrop-filter:none; -webkit-backdrop-filter:none;
+      border-bottom-color:transparent;
+    }
+    .nav-left{ gap:clamp(10px, 2.2vw, 16px); }
+    .nav-mark{ width:var(--mark); height:var(--mark); }
+    .nav-lockup{ padding-left:clamp(10px, 2.2vw, 16px); gap:clamp(4px, .9vw, 7px); }
+    .nav-name{ font-size:clamp(.75rem, .56rem + .95vw, .95rem); letter-spacing:.2em; }
+    .nav-tag{ font-size:clamp(.625rem, .5rem + .62vw, .8rem); letter-spacing:.05em; }
+    body.menu-open{ overflow:hidden; }
+  }
+  @media (min-width: 1321px){
+    .mobile-drawer{ display:none; }
+  }
+  /* drawer on tablets: CTA + languages side by side, content kept to a readable width */
+  @media (min-width: 600px) and (max-width: 1320px){
+    .drawer-nav, .drawer-foot{ width:min(100%, 680px); }
+    .drawer-foot{ flex-direction:row; align-items:center; justify-content:space-between; gap:24px; }
+    .drawer-cta{ padding-left:40px; padding-right:40px; }
+    .drawer-meta{ gap:32px; }
+  }
+
+  /* ---------- tablet: ≤980px ---------- */
+  @media (max-width: 980px){
+    .maison-grid, .contact-grid, .faq-grid{ grid-template-columns:1fr; }
+    /* two service columns while each can stay ≥340px wide, one column below */
+    .services-grid{ grid-template-columns:repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+    .valeurs-list li{ grid-template-columns:auto 1fr; gap:6px 18px; }
+    .valeurs-list p{ grid-column:2; }
+    .audience-list{ grid-template-columns:1fr; }
+
+    /* hero stacks: coin on top, copy below, block centred in the viewport */
+    .hero{
+      justify-content:center;
+      padding:calc(var(--nav-py) * 2 + var(--mark) + clamp(16px, 4svh, 40px) + env(safe-area-inset-top)) 0 clamp(40px, 6svh, 72px);
+    }
+    .coin-stage{
+      --d:clamp(160px, min(52vw, 34svh), 340px);
+      position:relative; top:auto; bottom:auto; right:auto;
+      width:100%; margin:0 0 clamp(8px, 2svh, 20px); gap:10px;
+    }
+    .coin-meta{ gap:6px; }
+    .hero-body{ max-width:min(100%, 44rem); margin:0; }
+    .hero-title{ font-size:clamp(2.1rem, 1.2rem + 4.6vw, 3.6rem); }
+    .hero-lede{ font-size:clamp(15px, .85rem + .45vw, 17px); margin-bottom:clamp(28px, 5svh, 42px); }
+    .hero-actions{ gap:18px clamp(28px, 5vw, 48px); }
+    .hero-guilloche{ right:-40vmin; opacity:.04; }
+  }
+
+  /* ---------- phablet / large phone: ≤767px ---------- */
+  @media (max-width: 767px){
+    .scroll-cue{ display:none; }
+    .footer-top{ flex-direction:column; align-items:flex-start; gap:28px; }
+    .footer-links{ gap:14px 28px; }
+  }
+
+  @media (max-width: 600px){
+    .form-grid{ grid-template-columns:1fr; }
+    .faq-list details p{ padding-right:0; }
+  }
+
+  /* ---------- phone: ≤480px ---------- */
+  @media (max-width: 480px){
+    .trust-list, .method-grid{ grid-template-columns:1fr; }
+    .trust-list li, .trust-list li:nth-child(3){ border-left:none; padding-left:0; }
+    .trust-list li + li{ border-top:1px solid var(--line-soft); }
+    .hero-actions{ flex-direction:column; align-items:flex-start; }
+    .footer-links{ flex-direction:column; gap:14px; }
+  }
+
+  /* ---------- small phone: ≤374px ---------- */
+  @media (max-width: 374px){
+    .nav-name{ letter-spacing:.16em; }
+    .nav-tag{ letter-spacing:.03em; }
+    .hero-actions a{ font-size:11px; letter-spacing:.2em; }
+    a.service-cta, .submit-btn{ letter-spacing:.16em; padding:15px 22px; }
+    .drawer-cta{ letter-spacing:.18em; }
+  }
+
+  /* ---------- phones in landscape (and other short, wide screens) ---------- */
+  @media (max-width: 980px) and (orientation: landscape) and (max-height: 560px){
+    .hero{
+      --hd:clamp(130px, min(34vw, 52svh), 280px);
+      min-height:100svh; justify-content:center;
+      padding:calc(var(--nav-py) * 2 + var(--mark) + 16px + env(safe-area-inset-top)) 0 clamp(20px, 6svh, 40px);
+    }
+    /* coin goes back to the right-hand column, copy on the left */
+    .coin-stage{
+      --d:var(--hd);
+      position:absolute; top:calc(var(--nav-py) * 2 + var(--mark)); bottom:0; right:var(--gutter-r);
+      width:calc(var(--hd) * 1.3); margin:0;
+    }
+    .coin-meta{ display:none; }
+    .hero-body{ max-width:calc(100% - var(--hd) * 1.3); }
+    .hero-title{ font-size:clamp(1.9rem, 1rem + 3vw, 2.8rem); margin-bottom:14px; }
+    .hero-lede{ font-size:14px; line-height:1.7; margin-bottom:22px; }
+    .hero-actions{ flex-direction:row; gap:14px 28px; }
+    .scroll-cue{ display:none; }
+
+    /* drawer: links left, CTA + languages right — fits in ~320–430px of height */
+    .mobile-drawer{
+      display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr);
+      column-gap:clamp(24px, 6vw, 72px); align-content:start;
+      padding-top:calc(var(--nav-py) * 2 + var(--mark) + 14px + env(safe-area-inset-top));
+    }
+    .drawer-nav, .drawer-foot{ width:auto; }
+    .drawer-nav a{ padding:clamp(7px, 2.2svh, 13px) 0; font-size:clamp(1.2rem, .8rem + 1.6vw, 1.7rem); }
+    .drawer-foot{
+      margin-top:0; padding-top:0; align-self:end;
+      flex-direction:column; align-items:stretch; gap:18px;
+    }
+    .drawer-cta{ letter-spacing:.16em; padding:15px 14px; white-space:nowrap; }
+  }
+  /* very short landscape screens (≤420px high): tighter hero copy so the CTAs stay on screen */
+  @media (max-width: 980px) and (orientation: landscape) and (max-height: 420px){
+    .hero-title{ font-size:clamp(1.6rem, .9rem + 2.4vw, 2.2rem); margin-bottom:10px; }
+    .hero-lede{ font-size:13px; line-height:1.6; margin-bottom:16px; }
+    .hero-actions a{ font-size:11px; padding-bottom:7px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" aria-hidden="true"><i id="scrollBar"></i></div>
+
+<!-- ============ NAV ============ -->
+<header class="site-nav stage-fade st1" id="siteNav">
+  <a class="nav-left" href="#hero" aria-label="Aurum Partners — Maison D'or Genève">
+    <svg class="nav-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g transform="translate(100,100)">
+        <polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#C6A15B" stroke-width="5"/>
+        <polygon points="0,-50 44,0 0,50 -44,0" fill="none" stroke="#C6A15B" stroke-width="2"/>
+        <path d="M0.00,-30.00 L4.59,-11.09 L21.21,-21.21 L11.09,-4.59 L30.00,0.00 L11.09,4.59 L21.21,21.21 L4.59,11.09 L0.00,30.00 L-4.59,11.09 L-21.21,21.21 L-11.09,4.59 L-30.00,0.00 L-11.09,-4.59 L-21.21,-21.21 L-4.59,-11.09 Z" fill="#C6A15B"/>
+        <circle cx="0" cy="0" r="5.5" fill="#0B1F3A"/>
+      </g>
+    </svg>
+    <span class="nav-lockup" aria-hidden="true">
+      <span class="nav-name">AURUM PARTNERS</span>
+      <span class="nav-tag">Maison D'or Genève</span>
+    </span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#maison" data-i18n="nav.about">Qui sommes-nous</a></li>
+    <li><a href="#services" data-i18n="nav.services">Services</a></li>
+    <li><a href="#methode" data-i18n="nav.method">Méthode</a></li>
+    <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="lang-switch" role="group" aria-label="Langue">
+      <button data-lang="fr" class="active">FR</button><span>/</span>
+      <button data-lang="en">EN</button><span>/</span>
+      <button data-lang="de">DE</button><span>/</span>
+      <button data-lang="it">IT</button>
+    </div>
+    <a class="nav-cta magnet" href="#contact" data-i18n="nav.contact">Demander un entretien</a>
+  </div>
+
+  <button class="nav-burger" id="burgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <nav class="drawer-nav" aria-label="Menu">
+    <a href="#maison"><span class="dn-idx">01</span><span data-i18n="nav.about">Qui sommes-nous</span></a>
+    <a href="#services"><span class="dn-idx">02</span><span data-i18n="nav.services">Services</span></a>
+    <a href="#methode"><span class="dn-idx">03</span><span data-i18n="nav.method">Méthode</span></a>
+    <a href="#faq"><span class="dn-idx">04</span><span data-i18n="nav.faq">FAQ</span></a>
+    <a href="#contact"><span class="dn-idx">05</span><span data-i18n="nav.contactShort">Contact</span></a>
+  </nav>
+  <div class="drawer-foot">
+    <a class="drawer-cta" href="#contact" data-i18n="nav.contact">Demander un entretien</a>
+    <div class="drawer-meta">
+      <div class="lang-switch" role="group" aria-label="Langue">
+        <button data-lang="fr" class="active">FR</button><span>/</span>
+        <button data-lang="en">EN</button><span>/</span>
+        <button data-lang="de">DE</button><span>/</span>
+        <button data-lang="it">IT</button>
+      </div>
+      <span class="drawer-place">Genève</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 01 HERO ============ -->
+<section class="hero" id="hero">
+  <svg class="hero-guilloche" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="none" stroke="#C6A15B" stroke-width="1">
+      <circle cx="400" cy="400" r="390" stroke-dasharray="2 9"/>
+      <circle cx="400" cy="400" r="352"/>
+      <circle cx="400" cy="400" r="330" stroke-dasharray="1 6"/>
+      <circle cx="400" cy="400" r="296"/>
+      <circle cx="400" cy="400" r="270" stroke-dasharray="3 12"/>
+      <circle cx="400" cy="400" r="228"/>
+      <circle cx="400" cy="400" r="200" stroke-dasharray="1 5"/>
+      <circle cx="400" cy="400" r="158"/>
+      <circle cx="400" cy="400" r="128" stroke-dasharray="2 7"/>
+      <circle cx="400" cy="400" r="86"/>
+    </g>
+  </svg>
+  <div class="hero-grain"></div>
+
+  <!-- 3D coin -->
+  <div class="coin-stage stage-fade st2" id="coinWrap">
+    <div class="coin-glow" aria-hidden="true"></div>
+    <div class="coin3d-stage" id="coinStage">
+      <div class="c-shadow" id="coinShadow"></div>
+      <div class="coin3d" id="coin" role="img" aria-label="Pièce d'or Aurum Partners, Maison D'Or">
+        <div class="c-face c-front">
+          <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <path id="arcTopF" d="M44,160 A116,116 0 0 1 276,160"/>
+              <path id="arcBotF" d="M32,160 A128,128 0 0 0 288,160"/>
+            </defs>
+            <circle class="bead" cx="160" cy="160" r="141"/>
+            <circle class="hair" cx="160" cy="160" r="134"/>
+            <g transform="translate(160,160) scale(1.25)">
+              <polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#6a4a0f" stroke-width="4.5"/>
+              <polygon points="0,-50 44,0 0,50 -44,0" fill="none" stroke="#6a4a0f" stroke-width="1.8"/>
+              <path d="M0.00,-30.00 L4.59,-11.09 L21.21,-21.21 L11.09,-4.59 L30.00,0.00 L11.09,4.59 L21.21,21.21 L4.59,11.09 L0.00,30.00 L-4.59,11.09 L-21.21,21.21 L-11.09,4.59 L-30.00,0.00 L-11.09,-4.59 L-21.21,-21.21 L-4.59,-11.09 Z" fill="#6a4a0f"/>
+              <circle cx="0" cy="0" r="5.5" fill="#dcbc63"/>
+            </g>
+            <text font-size="18" letter-spacing="3" text-anchor="middle"><textPath href="#arcTopF" startOffset="50%">Aurum Partners</textPath></text>
+            <text class="t2" font-size="12" letter-spacing="5.5" text-anchor="middle"><textPath href="#arcBotF" startOffset="50%">MAISON D'OR</textPath></text>
+          </svg>
+          <div class="c-glint"></div>
+        </div>
+        <div class="c-face c-back">
+          <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <path id="arcTopB" d="M44,160 A116,116 0 0 1 276,160"/>
+              <path id="arcBotB" d="M32,160 A128,128 0 0 0 288,160"/>
+            </defs>
+            <circle class="bead" cx="160" cy="160" r="141"/>
+            <circle class="hair" cx="160" cy="160" r="134"/>
+            <g transform="translate(160,160) scale(1.25)">
+              <polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#6a4a0f" stroke-width="4.5"/>
+              <polygon points="0,-50 44,0 0,50 -44,0" fill="none" stroke="#6a4a0f" stroke-width="1.8"/>
+              <path d="M0.00,-30.00 L4.59,-11.09 L21.21,-21.21 L11.09,-4.59 L30.00,0.00 L11.09,4.59 L21.21,21.21 L4.59,11.09 L0.00,30.00 L-4.59,11.09 L-21.21,21.21 L-11.09,4.59 L-30.00,0.00 L-11.09,-4.59 L-21.21,-21.21 L-4.59,-11.09 Z" fill="#6a4a0f"/>
+              <circle cx="0" cy="0" r="5.5" fill="#dcbc63"/>
+            </g>
+            <text font-size="18" letter-spacing="3" text-anchor="middle"><textPath href="#arcTopB" startOffset="50%">Aurum Partners</textPath></text>
+            <text class="t2" font-size="12" letter-spacing="5.5" text-anchor="middle"><textPath href="#arcBotB" startOffset="50%">MAISON D'OR</textPath></text>
+          </svg>
+          <div class="c-glint"></div>
+        </div>
+      </div>
+    </div>
+    <div class="coin-meta">
+      <span class="drag-hint" id="dragHint" data-i18n="hero.dragHint">Faites tourner la pièce</span>
+      <div class="rotation-readout" id="rotReadout"><span data-i18n="hero.axis">AXE</span> <b id="rotDeg">000°</b></div>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    
+
+    <h1 class="hero-title stage st3" data-i18n="hero.title">L'or, traité <em>avec exigence.</em></h1>
+    <p class="hero-lede stage st4" data-i18n="hero.lede">Aurum Partners accompagne investisseurs, institutions et producteurs dans l'achat, la vente et le négoce d'or et de métaux précieux. Un métal traçable, des prix lisibles, une conformité sans compromis.</p>
+
+    <div class="hero-actions stage st5">
+      <a class="primary magnet" href="#contact"><span data-i18n="hero.cta1">Demander un entretien</span></a>
+      <a class="magnet" href="#services"><span data-i18n="hero.cta2">Découvrir nos services</span></a>
+    </div>
+  </div>
+
+  <div class="scroll-cue" id="scrollCue"><span data-i18n="hero.scroll">Défiler</span><span class="line"></span></div>
+</section>
+
+<!-- ============ 02 BANDEAU DE CONFIANCE ============ -->
+<section class="trust" aria-label="Engagements">
+  <div class="wrap">
+    <ul class="trust-list">
+      <li class="reveal"><h3 data-i18n="trust.t1">Traçabilité</h3><p data-i18n="trust.p1">Or physique documenté, de l'origine à la livraison</p></li>
+      <li class="reveal d1"><h3 data-i18n="trust.t2">Conformité</h3><p data-i18n="trust.p2">Contreparties vérifiées — KYC et anti-blanchiment</p></li>
+      <li class="reveal d2"><h3 data-i18n="trust.t3">Transparence</h3><p data-i18n="trust.p3">Prix référencés sur les cotations LBMA</p></li>
+      <li class="reveal d3"><h3 data-i18n="trust.t4">Suivi</h3><p data-i18n="trust.p4">Un interlocuteur dédié pour chaque mandat</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 03 QUI SOMMES-NOUS ============ -->
+<section class="band band-light" id="maison">
+  <div class="wrap maison-grid">
+    <div class="reveal">
+      <div class="eyebrow">
+        <svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#0B1F3A" stroke-width="8"/></g></svg>
+        <span data-i18n="about.eyebrow">Qui sommes-nous</span>
+      </div>
+      <h2 data-i18n="about.title">Une maison spécialisée, pas un intermédiaire de plus.</h2>
+    </div>
+
+    <div>
+      <p class="maison-copy reveal d1" data-i18n="about.p1">Aurum Partners opère sur le marché de l'or et des métaux précieux avec une conviction simple : la valeur d'une transaction dépend de ce qui la sous-tend. Origine du métal, identité des contreparties, conditions de règlement — chaque élément est vérifié avant d'être engagé.</p>
+      <p class="maison-copy reveal d2" data-i18n="about.p2">Nous travaillons avec un nombre limité de clients, afin de consacrer à chaque mandat le temps et la rigueur qu'il exige.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 NOS SERVICES ============ -->
+<section class="band-dark" id="services">
+  <div class="wrap services-head">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#C6A15B" stroke-width="8"/></g></svg><span data-i18n="services.eyebrow">Nos services</span></div>
+      <h2 data-i18n="services.title">Nos domaines d'intervention</h2>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-panel reveal">
+      <span class="service-ghost" aria-hidden="true">I</span>
+      <span class="service-num">I</span>
+      <h3 data-i18n="services.s1t">Investissement en or physique</h3>
+      <p data-i18n="services.s1p">Acquisition de lingots et de pièces d'or d'investissement, conservés en votre nom ou livrés selon vos instructions. Une allocation pensée pour la préservation du patrimoine sur le long terme.</p>
+    </div>
+    <div class="service-panel reveal d1">
+      <span class="service-ghost" aria-hidden="true">II</span>
+      <span class="service-num">II</span>
+      <h3 data-i18n="services.s2t">Achat et vente d'or</h3>
+      <p data-i18n="services.s2p">Exécution d'ordres d'achat et de vente à des conditions claires : prix référencé sur le marché, frais communiqués avant tout engagement.</p>
+    </div>
+    <div class="service-panel reveal">
+      <span class="service-ghost" aria-hidden="true">III</span>
+      <span class="service-num">III</span>
+      <h3 data-i18n="services.s3t">Négoce et approvisionnement</h3>
+      <p data-i18n="services.s3p">Sourcing et négoce d'or auprès de producteurs identifiés, avec documentation d'origine, contrôle qualité et logistique sécurisée jusqu'à l'affinage.</p>
+    </div>
+    <div class="service-panel reveal d1">
+      <span class="service-ghost" aria-hidden="true">IV</span>
+      <span class="service-num">IV</span>
+      <h3 data-i18n="services.s4t">Partenariats aurifères</h3>
+      <p data-i18n="services.s4p">Structuration de partenariats avec les producteurs : préfinancement, contrats d'enlèvement (offtake) et accords de redevances, alignés sur les intérêts de chaque partie.</p>
+    </div>
+  </div>
+  <div class="wrap services-foot">
+    <a class="service-cta magnet reveal" href="#contact"><span data-i18n="services.cta">Discuter de votre besoin</span></a>
+  </div>
+</section>
+
+<!-- ============ 05 POURQUOI AURUM PARTNERS ============ -->
+<section class="band band-light" id="valeurs">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:0">
+      <div class="eyebrow"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#0B1F3A" stroke-width="8"/></g></svg><span data-i18n="why.eyebrow">Pourquoi Aurum Partners</span></div>
+      <h2 data-i18n="why.title">Ce qui fonde la confiance</h2>
+    </div>
+
+    <ul class="valeurs-list">
+      <li class="reveal">
+        <span class="valeurs-idx">01</span>
+        <h3 data-i18n="why.v1t">Conformité</h3>
+        <p data-i18n="why.v1p">Chaque client et chaque contrepartie fait l'objet d'une vérification d'identité et d'une analyse de l'origine des fonds, conformément aux obligations de lutte contre le blanchiment.</p>
+      </li>
+      <li class="reveal d1">
+        <span class="valeurs-idx">02</span>
+        <h3 data-i18n="why.v2t">Traçabilité</h3>
+        <p data-i18n="why.v2p">Nous documentons la chaîne de possession du métal, de la mine ou du vendeur jusqu'à la livraison. Sans document, pas de transaction.</p>
+      </li>
+      <li class="reveal d2">
+        <span class="valeurs-idx">03</span>
+        <h3 data-i18n="why.v3t">Transparence</h3>
+        <p data-i18n="why.v3p">Prix, frais, délais : les conditions sont écrites et remises avant signature. Aucun coût découvert après coup.</p>
+      </li>
+      <li class="reveal d3">
+        <span class="valeurs-idx">04</span>
+        <h3 data-i18n="why.v4t">Discrétion</h3>
+        <p data-i18n="why.v4p">Vos informations sont traitées avec la confidentialité qu'attendent investisseurs et institutions.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 06 NOTRE MÉTHODE ============ -->
+<section class="band band-dark" id="methode">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#C6A15B" stroke-width="8"/></g></svg><span data-i18n="method.eyebrow">Notre méthode</span></div>
+      <h2 data-i18n="method.title">Comment nous travaillons</h2>
+    </div>
+    <ol class="method-grid">
+      <li class="reveal"><span class="method-num">01</span><h3 data-i18n="method.m1t">Premier échange</h3><p data-i18n="method.m1p">Un entretien confidentiel pour comprendre votre objectif, votre horizon et vos contraintes.</p></li>
+      <li class="reveal d1"><span class="method-num">02</span><h3 data-i18n="method.m2t">Vérifications</h3><p data-i18n="method.m2p">Procédure KYC et validation des éléments nécessaires à l'ouverture de la relation.</p></li>
+      <li class="reveal d2"><span class="method-num">03</span><h3 data-i18n="method.m3t">Proposition</h3><p data-i18n="method.m3p">Une offre écrite : métal, volumes, prix de référence, frais, stockage ou livraison.</p></li>
+      <li class="reveal d3"><span class="method-num">04</span><h3 data-i18n="method.m4t">Exécution</h3><p data-i18n="method.m4p">Règlement, livraison ou mise en dépôt, avec l'ensemble des justificatifs remis.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 07 POUR QUI ============ -->
+<section class="band band-light" id="clients">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#0B1F3A" stroke-width="8"/></g></svg><span data-i18n="who.eyebrow">Pour qui</span></div>
+      <h2 data-i18n="who.title">Nous accompagnons</h2>
+    </div>
+    <ul class="audience-list">
+      <li class="reveal"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#9C7C42" stroke-width="8"/></g></svg><p data-i18n="who.a1"><strong>Investisseurs privés</strong> qui souhaitent détenir de l'or physique comme valeur de préservation.</p></li>
+      <li class="reveal d1"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#9C7C42" stroke-width="8"/></g></svg><p data-i18n="who.a2"><strong>Family offices et gestionnaires</strong> à la recherche d'une exposition directe et documentée aux métaux précieux.</p></li>
+      <li class="reveal"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#9C7C42" stroke-width="8"/></g></svg><p data-i18n="who.a3"><strong>Institutions et négociants</strong> ayant besoin d'une contrepartie fiable pour leurs opérations sur l'or.</p></li>
+      <li class="reveal d1"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#9C7C42" stroke-width="8"/></g></svg><p data-i18n="who.a4"><strong>Producteurs aurifères</strong> en quête de débouchés, de financement ou de partenaires de long terme.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 08 QUESTIONS FRÉQUENTES ============ -->
+<section class="band band-dark" id="faq">
+  <div class="wrap faq-grid">
+    <div class="reveal">
+      <div class="eyebrow"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#C6A15B" stroke-width="8"/></g></svg><span data-i18n="faq.eyebrow">FAQ</span></div>
+      <h2 style="font-size:clamp(34px,4.4vw,58px);line-height:1.08;margin-top:22px" data-i18n="faq.title">Questions fréquentes</h2>
+    </div>
+    <div class="faq-list reveal d1">
+      <details>
+        <summary><span data-i18n="faq.q1">Quel montant minimum pour investir dans l'or avec Aurum Partners ?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="faq.a1">Les seuils dépendent de la nature du mandat [montant minimum à préciser]. Nous vous les indiquons dès le premier échange.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="faq.q2">Comment le prix de l'or est-il déterminé ?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="faq.a2">Nos prix sont référencés sur les cotations de marché (LBMA Gold Price). La marge et les frais applicables vous sont communiqués par écrit avant toute transaction.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="faq.q3">Où mon or est-il conservé ?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="faq.a3">Selon votre choix : en dépôt sécurisé auprès de [prestataire de stockage — à préciser], en compte ségrégué à votre nom, ou livré à l'adresse convenue.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="faq.q4">Pourquoi une procédure de vérification ?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="faq.a4">Elle protège nos clients autant que nous-mêmes. Le marché de l'or est soumis à des obligations strictes de lutte contre le blanchiment ; nous les appliquons sans exception.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 CONTACT ============ -->
+<section class="band" id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <div class="eyebrow"><svg class="mk" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(100,100)"><polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#C6A15B" stroke-width="8"/></g></svg><span data-i18n="contact.eyebrow">Contact</span></div>
+      <h2 style="font-size:clamp(34px,4.4vw,58px);line-height:1.1;margin:22px 0 28px" data-i18n="contact.title">Parlons de votre projet.</h2>
+      <p class="contact-lede" data-i18n="contact.lede">Chaque demande est examinée personnellement. Un conseiller vous répond sous [48 heures ouvrées].</p>
+    </div>
+
+    <form class="contact-form reveal d1" id="contactForm" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="f-name"><span data-i18n="form.name">Nom et prénom</span><span class="req" aria-hidden="true">*</span></label>
+          <input id="f-name" name="name" type="text" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="f-company"><span data-i18n="form.company">Société</span><span class="opt" data-i18n="form.optional">Facultatif</span></label>
+          <input id="f-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="f-email"><span data-i18n="form.email">E-mail professionnel</span><span class="req" aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="f-phone"><span data-i18n="form.phone">Téléphone</span><span class="req" aria-hidden="true">*</span></label>
+          <input id="f-phone" name="phone" type="tel" required autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="f-profile" data-i18n="form.profile">Vous êtes</label>
+          <select id="f-profile" name="profile">
+            <option value="" data-i18n="form.select">—</option>
+            <option value="investisseur-prive" data-i18n="form.p1">Investisseur privé</option>
+            <option value="family-office" data-i18n="form.p2">Family office</option>
+            <option value="institution-negociant" data-i18n="form.p3">Institution / négociant</option>
+            <option value="producteur" data-i18n="form.p4">Producteur</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-subject" data-i18n="form.subject">Objet de la demande</label>
+          <select id="f-subject" name="subject">
+            <option value="" data-i18n="form.select">—</option>
+            <option value="investissement" data-i18n="form.o1">Investissement en or</option>
+            <option value="achat-vente" data-i18n="form.o2">Achat ou vente</option>
+            <option value="negoce" data-i18n="form.o3">Négoce</option>
+            <option value="partenariat" data-i18n="form.o4">Partenariat</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-volume"><span data-i18n="form.volume">Volume envisagé</span><span class="opt" data-i18n="form.optional">Facultatif</span></label>
+          <input id="f-volume" name="volume" type="text">
+        </div>
+        <div class="field full">
+          <label for="f-msg"><span data-i18n="form.message">Message</span><span class="opt" data-i18n="form.optional">Facultatif</span></label>
+          <textarea id="f-msg" name="message" rows="3"></textarea>
+        </div>
+        <label class="consent full">
+          <input type="checkbox" name="consent" required>
+          <span data-i18n="form.consent">J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la politique de confidentialité.</span>
+        </label>
+      </div>
+      <div class="form-actions">
+        <button class="submit-btn magnet" type="submit" data-i18n="form.submit">Envoyer ma demande</button>
+        <p class="form-note" data-i18n="form.note">Vos informations restent strictement confidentielles.</p>
+      </div>
+      <p class="form-done" role="status" data-i18n="form.done">Merci. Votre demande a bien été reçue — un conseiller vous contactera sous [48 heures ouvrées].</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ 10 FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-mark">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g transform="translate(100,100)">
+            <polygon points="0,-62 54,0 0,62 -54,0" fill="none" stroke="#C6A15B" stroke-width="5"/>
+            <polygon points="0,-50 44,0 0,50 -44,0" fill="none" stroke="#C6A15B" stroke-width="2"/>
+            <path d="M0.00,-30.00 L4.59,-11.09 L21.21,-21.21 L11.09,-4.59 L30.00,0.00 L11.09,4.59 L21.21,21.21 L4.59,11.09 L0.00,30.00 L-4.59,11.09 L-21.21,21.21 L-11.09,4.59 L-30.00,0.00 L-11.09,-4.59 L-21.21,-21.21 L-4.59,-11.09 Z" fill="#C6A15B"/>
+            <circle cx="0" cy="0" r="5.5" fill="#0B1F3A"/>
+          </g>
+        </svg>
+        <span class="nav-lockup">
+          <span class="nav-name">AURUM PARTNERS</span>
+          <span class="nav-tag">Maison D'or Genève</span>
+        </span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#" data-i18n="footer.legalNotice">Mentions légales</a></li>
+        <li><a href="#" data-i18n="footer.privacy">Politique de confidentialité</a></li>
+        <li><a href="#contact" data-i18n="nav.contactShort">Contact</a></li>
+      </ul>
+    </div>
+    <p class="footer-risk" data-i18n="footer.risk">L'investissement dans l'or et les métaux précieux comporte des risques, notamment de fluctuation des prix. Les performances passées ne préjugent pas des performances futures. Les informations présentées sur cette page ne constituent pas un conseil en investissement.</p>
+    <div class="footer-bottom">
+      <span data-i18n="footer.entity">[Raison sociale, forme juridique, siège social, numéro d'immatriculation, statut réglementaire — à compléter]</span>
+    </div>
+  </div>
+</footer>
+<script>
+/* ================= i18n ================= */
+const I18N = {
+  fr:{
+    "nav.about":"Qui sommes-nous","nav.services":"Services","nav.method":"Méthode","nav.faq":"FAQ","nav.contact":"Demander un entretien","nav.contactShort":"Contact",
+    "hero.dragHint":"Faites tourner la pièce","hero.axis":"AXE","hero.scroll":"Défiler",
+   
+    "hero.title":"L'or, traité <em>avec exigence.</em>",
+    "hero.lede":"Aurum Partners accompagne investisseurs, institutions et producteurs dans l'achat, la vente et le négoce d'or et de métaux précieux. Un métal traçable, des prix lisibles, une conformité sans compromis.",
+    "hero.cta1":"Demander un entretien","hero.cta2":"Découvrir nos services",
+    "trust.t1":"Traçabilité","trust.p1":"Or physique documenté, de l'origine à la livraison",
+    "trust.t2":"Conformité","trust.p2":"Contreparties vérifiées — KYC et anti-blanchiment",
+    "trust.t3":"Transparence","trust.p3":"Prix référencés sur les cotations LBMA",
+    "trust.t4":"Suivi","trust.p4":"Un interlocuteur dédié pour chaque mandat",
+    "about.eyebrow":"Qui sommes-nous","about.title":"Une maison spécialisée, pas un intermédiaire de plus.",
+    "about.p1":"Aurum Partners opère sur le marché de l'or et des métaux précieux avec une conviction simple : la valeur d'une transaction dépend de ce qui la sous-tend. Origine du métal, identité des contreparties, conditions de règlement — chaque élément est vérifié avant d'être engagé.",
+    "about.p2":"Nous travaillons avec un nombre limité de clients, afin de consacrer à chaque mandat le temps et la rigueur qu'il exige.",
+    "services.eyebrow":"Nos services","services.title":"Nos domaines d'intervention",
+    "services.s1t":"Investissement en or physique","services.s1p":"Acquisition de lingots et de pièces d'or d'investissement, conservés en votre nom ou livrés selon vos instructions. Une allocation pensée pour la préservation du patrimoine sur le long terme.",
+    "services.s2t":"Achat et vente d'or","services.s2p":"Exécution d'ordres d'achat et de vente à des conditions claires : prix référencé sur le marché, frais communiqués avant tout engagement.",
+    "services.s3t":"Négoce et approvisionnement","services.s3p":"Sourcing et négoce d'or auprès de producteurs identifiés, avec documentation d'origine, contrôle qualité et logistique sécurisée jusqu'à l'affinage.",
+    "services.s4t":"Partenariats aurifères","services.s4p":"Structuration de partenariats avec les producteurs : préfinancement, contrats d'enlèvement (offtake) et accords de redevances, alignés sur les intérêts de chaque partie.",
+    "services.cta":"Discuter de votre besoin",
+    "why.eyebrow":"Pourquoi Aurum Partners","why.title":"Ce qui fonde la confiance",
+    "why.v1t":"Conformité","why.v1p":"Chaque client et chaque contrepartie fait l'objet d'une vérification d'identité et d'une analyse de l'origine des fonds, conformément aux obligations de lutte contre le blanchiment.",
+    "why.v2t":"Traçabilité","why.v2p":"Nous documentons la chaîne de possession du métal, de la mine ou du vendeur jusqu'à la livraison. Sans document, pas de transaction.",
+    "why.v3t":"Transparence","why.v3p":"Prix, frais, délais : les conditions sont écrites et remises avant signature. Aucun coût découvert après coup.",
+    "why.v4t":"Discrétion","why.v4p":"Vos informations sont traitées avec la confidentialité qu'attendent investisseurs et institutions.",
+    "method.eyebrow":"Notre méthode","method.title":"Comment nous travaillons",
+    "method.m1t":"Premier échange","method.m1p":"Un entretien confidentiel pour comprendre votre objectif, votre horizon et vos contraintes.",
+    "method.m2t":"Vérifications","method.m2p":"Procédure KYC et validation des éléments nécessaires à l'ouverture de la relation.",
+    "method.m3t":"Proposition","method.m3p":"Une offre écrite : métal, volumes, prix de référence, frais, stockage ou livraison.",
+    "method.m4t":"Exécution","method.m4p":"Règlement, livraison ou mise en dépôt, avec l'ensemble des justificatifs remis.",
+    "who.eyebrow":"Pour qui","who.title":"Nous accompagnons",
+    "who.a1":"<strong>Investisseurs privés</strong> qui souhaitent détenir de l'or physique comme valeur de préservation.",
+    "who.a2":"<strong>Family offices et gestionnaires</strong> à la recherche d'une exposition directe et documentée aux métaux précieux.",
+    "who.a3":"<strong>Institutions et négociants</strong> ayant besoin d'une contrepartie fiable pour leurs opérations sur l'or.",
+    "who.a4":"<strong>Producteurs aurifères</strong> en quête de débouchés, de financement ou de partenaires de long terme.",
+    "faq.eyebrow":"FAQ","faq.title":"Questions fréquentes",
+    "faq.q1":"Quel montant minimum pour investir dans l'or avec Aurum Partners ?","faq.a1":"Les seuils dépendent de la nature du mandat [montant minimum à préciser]. Nous vous les indiquons dès le premier échange.",
+    "faq.q2":"Comment le prix de l'or est-il déterminé ?","faq.a2":"Nos prix sont référencés sur les cotations de marché (LBMA Gold Price). La marge et les frais applicables vous sont communiqués par écrit avant toute transaction.",
+    "faq.q3":"Où mon or est-il conservé ?","faq.a3":"Selon votre choix : en dépôt sécurisé auprès de [prestataire de stockage — à préciser], en compte ségrégué à votre nom, ou livré à l'adresse convenue.",
+    "faq.q4":"Pourquoi une procédure de vérification ?","faq.a4":"Elle protège nos clients autant que nous-mêmes. Le marché de l'or est soumis à des obligations strictes de lutte contre le blanchiment ; nous les appliquons sans exception.",
+    "contact.eyebrow":"Contact","contact.title":"Parlons de votre projet.",
+    "contact.lede":"Chaque demande est examinée personnellement. Un conseiller vous répond sous [48 heures ouvrées].",
+    "form.name":"Nom et prénom","form.company":"Société","form.email":"E-mail professionnel","form.phone":"Téléphone","form.optional":"Facultatif",
+    "form.profile":"Vous êtes","form.select":"—","form.p1":"Investisseur privé","form.p2":"Family office","form.p3":"Institution / négociant","form.p4":"Producteur",
+    "form.subject":"Objet de la demande","form.o1":"Investissement en or","form.o2":"Achat ou vente","form.o3":"Négoce","form.o4":"Partenariat",
+    "form.volume":"Volume envisagé","form.message":"Message",
+    "form.consent":"J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la politique de confidentialité.",
+    "form.submit":"Envoyer ma demande","form.note":"Vos informations restent strictement confidentielles.",
+    "form.done":"Merci. Votre demande a bien été reçue — un conseiller vous contactera sous [48 heures ouvrées].",
+    "footer.legalNotice":"Mentions légales","footer.privacy":"Politique de confidentialité",
+    "footer.risk":"L'investissement dans l'or et les métaux précieux comporte des risques, notamment de fluctuation des prix. Les performances passées ne préjugent pas des performances futures. Les informations présentées sur cette page ne constituent pas un conseil en investissement.",
+    "footer.entity":"[Raison sociale, forme juridique, siège social, numéro d'immatriculation, statut réglementaire — à compléter]"
+  },
+  en:{
+    "nav.about":"About us","nav.services":"Services","nav.method":"Method","nav.faq":"FAQ","nav.contact":"Request a meeting","nav.contactShort":"Contact",
+    "hero.dragHint":"Turn the coin","hero.axis":"AXIS","hero.scroll":"Scroll",
+    "hero.eyebrow":"Physical gold · Precious metals · Trading",
+    "hero.title":"Gold, handled <em>with rigour.</em>",
+    "hero.lede":"Aurum Partners supports investors, institutions and producers in buying, selling and trading gold and precious metals. Traceable metal, clear pricing, uncompromising compliance.",
+    "hero.cta1":"Request a meeting","hero.cta2":"Explore our services",
+    "trust.t1":"Traceability","trust.p1":"Documented physical gold, from origin to delivery",
+    "trust.t2":"Compliance","trust.p2":"Verified counterparties — KYC and anti-money laundering",
+    "trust.t3":"Transparency","trust.p3":"Prices referenced to LBMA benchmarks",
+    "trust.t4":"Dedicated follow-up","trust.p4":"One dedicated contact for every mandate",
+    "about.eyebrow":"About us","about.title":"A specialist house, not just another intermediary.",
+    "about.p1":"Aurum Partners operates in the gold and precious metals market with one simple conviction: the value of a transaction depends on what underpins it. Origin of the metal, identity of the counterparties, settlement terms — every element is verified before it is committed.",
+    "about.p2":"We work with a limited number of clients, so that we can give each mandate the time and rigour it demands.",
+    "services.eyebrow":"Our services","services.title":"What we do",
+    "services.s1t":"Physical gold investment","services.s1p":"Acquisition of investment gold bars and coins, held in your name or delivered according to your instructions. An allocation designed for long-term wealth preservation.",
+    "services.s2t":"Buying and selling gold","services.s2p":"Execution of buy and sell orders on clear terms: market-referenced pricing, fees disclosed before any commitment.",
+    "services.s3t":"Trading and sourcing","services.s3p":"Sourcing and trading of gold from identified producers, with documentation of origin, quality control and secure logistics through to refining.",
+    "services.s4t":"Gold partnerships","services.s4p":"Structuring partnerships with producers: pre-financing, offtake agreements and royalty arrangements, aligned with the interests of every party.",
+    "services.cta":"Discuss your needs",
+    "why.eyebrow":"Why Aurum Partners","why.title":"What trust is built on",
+    "why.v1t":"Compliance","why.v1p":"Every client and every counterparty undergoes identity verification and a source-of-funds review, in line with anti-money laundering obligations.",
+    "why.v2t":"Traceability","why.v2p":"We document the metal's chain of custody, from the mine or seller through to delivery. No documents, no transaction.",
+    "why.v3t":"Transparency","why.v3p":"Prices, fees, timelines: terms are set out in writing and provided before signing. No costs discovered after the fact.",
+    "why.v4t":"Discretion","why.v4p":"Your information is handled with the confidentiality investors and institutions expect.",
+    "method.eyebrow":"Our method","method.title":"How we work",
+    "method.m1t":"First conversation","method.m1p":"A confidential meeting to understand your objective, your time horizon and your constraints.",
+    "method.m2t":"Verification","method.m2p":"KYC procedure and validation of the information required to open the relationship.",
+    "method.m3t":"Proposal","method.m3p":"A written offer: metal, volumes, reference price, fees, storage or delivery.",
+    "method.m4t":"Execution","method.m4p":"Settlement, delivery or placement in custody, with all supporting documents provided.",
+    "who.eyebrow":"Who we serve","who.title":"We work with",
+    "who.a1":"<strong>Private investors</strong> who wish to hold physical gold as a store of value.",
+    "who.a2":"<strong>Family offices and asset managers</strong> seeking direct, documented exposure to precious metals.",
+    "who.a3":"<strong>Institutions and traders</strong> who need a reliable counterparty for their gold operations.",
+    "who.a4":"<strong>Gold producers</strong> looking for offtake, financing or long-term partners.",
+    "faq.eyebrow":"FAQ","faq.title":"Frequently asked questions",
+    "faq.q1":"What is the minimum amount to invest in gold with Aurum Partners?","faq.a1":"Thresholds depend on the nature of the mandate [minimum amount to be confirmed]. We will share them with you in our first conversation.",
+    "faq.q2":"How is the gold price determined?","faq.a2":"Our prices are referenced to market benchmarks (LBMA Gold Price). The applicable margin and fees are provided to you in writing before any transaction.",
+    "faq.q3":"Where is my gold stored?","faq.a3":"As you choose: in secure custody with [storage provider — to be confirmed], in a segregated account in your name, or delivered to the agreed address.",
+    "faq.q4":"Why a verification procedure?","faq.a4":"It protects our clients as much as it protects us. The gold market is subject to strict anti-money laundering obligations; we apply them without exception.",
+    "contact.eyebrow":"Contact","contact.title":"Let's talk about your project.",
+    "contact.lede":"Every request is reviewed personally. An advisor will reply within [48 business hours].",
+    "form.name":"Full name","form.company":"Company","form.email":"Business email","form.phone":"Phone","form.optional":"Optional",
+    "form.profile":"You are","form.select":"—","form.p1":"Private investor","form.p2":"Family office","form.p3":"Institution / trader","form.p4":"Producer",
+    "form.subject":"Subject of your request","form.o1":"Gold investment","form.o2":"Buying or selling","form.o3":"Trading","form.o4":"Partnership",
+    "form.volume":"Expected volume","form.message":"Message",
+    "form.consent":"I agree that my data may be used to process my request, in accordance with the privacy policy.",
+    "form.submit":"Send my request","form.note":"Your information remains strictly confidential.",
+    "form.done":"Thank you. Your request has been received — an advisor will contact you within [48 business hours].",
+    "footer.legalNotice":"Legal notice","footer.privacy":"Privacy policy",
+    "footer.risk":"Investing in gold and precious metals involves risks, including price fluctuations. Past performance is not indicative of future results. The information on this page does not constitute investment advice.",
+    "footer.entity":"[Company name, legal form, registered office, registration number, regulatory status — to be completed]"
+  },
+  de:{
+    "nav.about":"Über uns","nav.services":"Leistungen","nav.method":"Vorgehen","nav.faq":"FAQ","nav.contact":"Gespräch anfragen","nav.contactShort":"Kontakt",
+    "hero.dragHint":"Münze drehen","hero.axis":"ACHSE","hero.scroll":"Scrollen",
+    "hero.eyebrow":"Physisches Gold · Edelmetalle · Handel",
+    "hero.title":"Gold, behandelt <em>mit Anspruch.</em>",
+    "hero.lede":"Aurum Partners begleitet Investoren, Institutionen und Produzenten beim Kauf, Verkauf und Handel von Gold und Edelmetallen. Rückverfolgbares Metall, nachvollziehbare Preise, kompromisslose Compliance.",
+    "hero.cta1":"Gespräch anfragen","hero.cta2":"Unsere Leistungen",
+    "trust.t1":"Rückverfolgbarkeit","trust.p1":"Dokumentiertes physisches Gold, vom Ursprung bis zur Lieferung",
+    "trust.t2":"Compliance","trust.p2":"Geprüfte Gegenparteien — KYC und Geldwäschereibekämpfung",
+    "trust.t3":"Transparenz","trust.p3":"Preise auf Basis der LBMA-Notierungen",
+    "trust.t4":"Betreuung","trust.p4":"Ein fester Ansprechpartner für jedes Mandat",
+    "about.eyebrow":"Über uns","about.title":"Ein spezialisiertes Haus, kein weiterer Vermittler.",
+    "about.p1":"Aurum Partners ist am Markt für Gold und Edelmetalle mit einer einfachen Überzeugung tätig: Der Wert einer Transaktion hängt davon ab, was ihr zugrunde liegt. Herkunft des Metalls, Identität der Gegenparteien, Abwicklungsbedingungen — jedes Element wird geprüft, bevor es eingegangen wird.",
+    "about.p2":"Wir arbeiten mit einer begrenzten Zahl von Kunden, um jedem Mandat die Zeit und Sorgfalt zu widmen, die es erfordert.",
+    "services.eyebrow":"Unsere Leistungen","services.title":"Unsere Tätigkeitsbereiche",
+    "services.s1t":"Anlage in physisches Gold","services.s1p":"Erwerb von Anlagebarren und -münzen aus Gold, auf Ihren Namen verwahrt oder nach Ihren Anweisungen geliefert. Eine Allokation, ausgerichtet auf den langfristigen Vermögenserhalt.",
+    "services.s2t":"Kauf und Verkauf von Gold","services.s2p":"Ausführung von Kauf- und Verkaufsaufträgen zu klaren Bedingungen: marktbasierter Preis, Gebühren vor jeder Verpflichtung offengelegt.",
+    "services.s3t":"Handel und Beschaffung","services.s3p":"Beschaffung und Handel von Gold bei identifizierten Produzenten, mit Herkunftsdokumentation, Qualitätskontrolle und gesicherter Logistik bis zur Raffinerie.",
+    "services.s4t":"Goldpartnerschaften","services.s4p":"Strukturierung von Partnerschaften mit Produzenten: Vorfinanzierung, Abnahmeverträge (Offtake) und Royalty-Vereinbarungen, im Interesse aller Parteien.",
+    "services.cta":"Ihr Anliegen besprechen",
+    "why.eyebrow":"Warum Aurum Partners","why.title":"Worauf Vertrauen beruht",
+    "why.v1t":"Compliance","why.v1p":"Jeder Kunde und jede Gegenpartei durchläuft eine Identitätsprüfung und eine Prüfung der Mittelherkunft, gemäss den Pflichten zur Bekämpfung der Geldwäscherei.",
+    "why.v2t":"Rückverfolgbarkeit","why.v2p":"Wir dokumentieren die Besitzkette des Metalls, von der Mine oder dem Verkäufer bis zur Lieferung. Ohne Dokument keine Transaktion.",
+    "why.v3t":"Transparenz","why.v3p":"Preise, Gebühren, Fristen: Die Bedingungen werden schriftlich festgehalten und vor der Unterzeichnung übergeben. Keine nachträglich entdeckten Kosten.",
+    "why.v4t":"Diskretion","why.v4p":"Ihre Informationen werden mit der Vertraulichkeit behandelt, die Investoren und Institutionen erwarten.",
+    "method.eyebrow":"Unser Vorgehen","method.title":"Wie wir arbeiten",
+    "method.m1t":"Erstgespräch","method.m1p":"Ein vertrauliches Gespräch, um Ihr Ziel, Ihren Anlagehorizont und Ihre Rahmenbedingungen zu verstehen.",
+    "method.m2t":"Prüfungen","method.m2p":"KYC-Verfahren und Validierung der für die Eröffnung der Geschäftsbeziehung erforderlichen Angaben.",
+    "method.m3t":"Angebot","method.m3p":"Ein schriftliches Angebot: Metall, Mengen, Referenzpreis, Gebühren, Verwahrung oder Lieferung.",
+    "method.m4t":"Ausführung","method.m4p":"Abwicklung, Lieferung oder Verwahrung, mit Übergabe aller Belege.",
+    "who.eyebrow":"Für wen","who.title":"Wir begleiten",
+    "who.a1":"<strong>Privatanleger</strong>, die physisches Gold zur Werterhaltung halten möchten.",
+    "who.a2":"<strong>Family Offices und Vermögensverwalter</strong>, die ein direktes und dokumentiertes Engagement in Edelmetallen suchen.",
+    "who.a3":"<strong>Institutionen und Händler</strong>, die eine verlässliche Gegenpartei für ihre Goldgeschäfte benötigen.",
+    "who.a4":"<strong>Goldproduzenten</strong> auf der Suche nach Absatzmärkten, Finanzierung oder langfristigen Partnern.",
+    "faq.eyebrow":"FAQ","faq.title":"Häufige Fragen",
+    "faq.q1":"Welcher Mindestbetrag gilt für eine Goldanlage mit Aurum Partners?","faq.a1":"Die Schwellenwerte hängen von der Art des Mandats ab [Mindestbetrag zu bestätigen]. Wir nennen sie Ihnen bereits im Erstgespräch.",
+    "faq.q2":"Wie wird der Goldpreis bestimmt?","faq.a2":"Unsere Preise basieren auf den Marktnotierungen (LBMA Gold Price). Die anwendbare Marge und die Gebühren werden Ihnen vor jeder Transaktion schriftlich mitgeteilt.",
+    "faq.q3":"Wo wird mein Gold verwahrt?","faq.a3":"Nach Ihrer Wahl: in sicherer Verwahrung bei [Verwahrungsdienstleister — zu bestätigen], auf einem segregierten Konto auf Ihren Namen oder geliefert an die vereinbarte Adresse.",
+    "faq.q4":"Warum ein Prüfverfahren?","faq.a4":"Es schützt unsere Kunden ebenso wie uns. Der Goldmarkt unterliegt strengen Pflichten zur Bekämpfung der Geldwäscherei; wir wenden sie ausnahmslos an.",
+    "contact.eyebrow":"Kontakt","contact.title":"Sprechen wir über Ihr Projekt.",
+    "contact.lede":"Jede Anfrage wird persönlich geprüft. Ein Berater antwortet Ihnen innerhalb von [48 Arbeitsstunden].",
+    "form.name":"Vor- und Nachname","form.company":"Unternehmen","form.email":"Geschäftliche E-Mail","form.phone":"Telefon","form.optional":"Optional",
+    "form.profile":"Sie sind","form.select":"—","form.p1":"Privatanleger","form.p2":"Family Office","form.p3":"Institution / Händler","form.p4":"Produzent",
+    "form.subject":"Gegenstand der Anfrage","form.o1":"Goldanlage","form.o2":"Kauf oder Verkauf","form.o3":"Handel","form.o4":"Partnerschaft",
+    "form.volume":"Vorgesehenes Volumen","form.message":"Nachricht",
+    "form.consent":"Ich bin damit einverstanden, dass meine Daten zur Bearbeitung meiner Anfrage gemäss der Datenschutzerklärung verwendet werden.",
+    "form.submit":"Anfrage senden","form.note":"Ihre Angaben bleiben streng vertraulich.",
+    "form.done":"Vielen Dank. Ihre Anfrage ist eingegangen — ein Berater wird Sie innerhalb von [48 Arbeitsstunden] kontaktieren.",
+    "footer.legalNotice":"Impressum","footer.privacy":"Datenschutzerklärung",
+    "footer.risk":"Anlagen in Gold und Edelmetalle sind mit Risiken verbunden, insbesondere Preisschwankungen. Die vergangene Wertentwicklung ist kein Indikator für künftige Ergebnisse. Die Informationen auf dieser Seite stellen keine Anlageberatung dar.",
+    "footer.entity":"[Firmenname, Rechtsform, Sitz, Handelsregisternummer, regulatorischer Status — zu ergänzen]"
+  },
+  it:{
+    "nav.about":"Chi siamo","nav.services":"Servizi","nav.method":"Metodo","nav.faq":"FAQ","nav.contact":"Richiedi un colloquio","nav.contactShort":"Contatti",
+    "hero.dragHint":"Ruota la moneta","hero.axis":"ASSE","hero.scroll":"Scorri",
+    "hero.eyebrow":"Oro fisico · Metalli preziosi · Trading",
+    "hero.title":"L'oro, trattato <em>con rigore.</em>",
+    "hero.lede":"Aurum Partners affianca investitori, istituzioni e produttori nell'acquisto, nella vendita e nel trading di oro e metalli preziosi. Metallo tracciabile, prezzi chiari, conformità senza compromessi.",
+    "hero.cta1":"Richiedi un colloquio","hero.cta2":"Scopri i nostri servizi",
+    "trust.t1":"Tracciabilità","trust.p1":"Oro fisico documentato, dall'origine alla consegna",
+    "trust.t2":"Conformità","trust.p2":"Controparti verificate — KYC e antiriciclaggio",
+    "trust.t3":"Trasparenza","trust.p3":"Prezzi riferiti alle quotazioni LBMA",
+    "trust.t4":"Assistenza","trust.p4":"Un referente dedicato per ogni mandato",
+    "about.eyebrow":"Chi siamo","about.title":"Una casa specializzata, non l'ennesimo intermediario.",
+    "about.p1":"Aurum Partners opera sul mercato dell'oro e dei metalli preziosi con una convinzione semplice: il valore di una transazione dipende da ciò che la sostiene. Origine del metallo, identità delle controparti, condizioni di regolamento — ogni elemento viene verificato prima di essere impegnato.",
+    "about.p2":"Lavoriamo con un numero limitato di clienti, per dedicare a ogni mandato il tempo e il rigore che richiede.",
+    "services.eyebrow":"I nostri servizi","services.title":"I nostri ambiti di intervento",
+    "services.s1t":"Investimento in oro fisico","services.s1p":"Acquisizione di lingotti e monete d'oro da investimento, custoditi a vostro nome o consegnati secondo le vostre istruzioni. Un'allocazione pensata per la preservazione del patrimonio nel lungo periodo.",
+    "services.s2t":"Acquisto e vendita di oro","services.s2p":"Esecuzione di ordini di acquisto e di vendita a condizioni chiare: prezzo riferito al mercato, commissioni comunicate prima di ogni impegno.",
+    "services.s3t":"Trading e approvvigionamento","services.s3p":"Sourcing e trading di oro presso produttori identificati, con documentazione d'origine, controllo qualità e logistica sicura fino alla raffinazione.",
+    "services.s4t":"Partnership aurifere","services.s4p":"Strutturazione di partnership con i produttori: prefinanziamento, contratti di offtake e accordi di royalty, allineati agli interessi di ciascuna parte.",
+    "services.cta":"Parliamo della vostra esigenza",
+    "why.eyebrow":"Perché Aurum Partners","why.title":"Ciò su cui si fonda la fiducia",
+    "why.v1t":"Conformità","why.v1p":"Ogni cliente e ogni controparte è sottoposto a verifica dell'identità e ad analisi dell'origine dei fondi, in conformità agli obblighi antiriciclaggio.",
+    "why.v2t":"Tracciabilità","why.v2p":"Documentiamo la catena di custodia del metallo, dalla miniera o dal venditore fino alla consegna. Senza documenti, nessuna transazione.",
+    "why.v3t":"Trasparenza","why.v3p":"Prezzi, commissioni, tempi: le condizioni sono messe per iscritto e consegnate prima della firma. Nessun costo scoperto a posteriori.",
+    "why.v4t":"Discrezione","why.v4p":"Le vostre informazioni sono trattate con la riservatezza che investitori e istituzioni si attendono.",
+    "method.eyebrow":"Il nostro metodo","method.title":"Come lavoriamo",
+    "method.m1t":"Primo incontro","method.m1p":"Un colloquio riservato per comprendere il vostro obiettivo, il vostro orizzonte e i vostri vincoli.",
+    "method.m2t":"Verifiche","method.m2p":"Procedura KYC e convalida degli elementi necessari all'apertura del rapporto.",
+    "method.m3t":"Proposta","method.m3p":"Un'offerta scritta: metallo, volumi, prezzo di riferimento, commissioni, custodia o consegna.",
+    "method.m4t":"Esecuzione","method.m4p":"Regolamento, consegna o messa in deposito, con la consegna di tutti i giustificativi.",
+    "who.eyebrow":"Per chi","who.title":"Affianchiamo",
+    "who.a1":"<strong>Investitori privati</strong> che desiderano detenere oro fisico come riserva di valore.",
+    "who.a2":"<strong>Family office e gestori</strong> alla ricerca di un'esposizione diretta e documentata ai metalli preziosi.",
+    "who.a3":"<strong>Istituzioni e operatori</strong> che necessitano di una controparte affidabile per le loro operazioni sull'oro.",
+    "who.a4":"<strong>Produttori auriferi</strong> alla ricerca di sbocchi, finanziamenti o partner di lungo periodo.",
+    "faq.eyebrow":"FAQ","faq.title":"Domande frequenti",
+    "faq.q1":"Qual è l'importo minimo per investire in oro con Aurum Partners?","faq.a1":"Le soglie dipendono dalla natura del mandato [importo minimo da definire]. Ve le indichiamo fin dal primo incontro.",
+    "faq.q2":"Come viene determinato il prezzo dell'oro?","faq.a2":"I nostri prezzi sono riferiti alle quotazioni di mercato (LBMA Gold Price). Il margine e le commissioni applicabili vi sono comunicati per iscritto prima di ogni transazione.",
+    "faq.q3":"Dove è custodito il mio oro?","faq.a3":"A vostra scelta: in deposito sicuro presso [fornitore di custodia — da definire], in un conto segregato a vostro nome, oppure consegnato all'indirizzo concordato.",
+    "faq.q4":"Perché una procedura di verifica?","faq.a4":"Protegge i nostri clienti quanto noi stessi. Il mercato dell'oro è soggetto a severi obblighi antiriciclaggio; li applichiamo senza eccezioni.",
+    "contact.eyebrow":"Contatti","contact.title":"Parliamo del vostro progetto.",
+    "contact.lede":"Ogni richiesta è esaminata personalmente. Un consulente vi risponde entro [48 ore lavorative].",
+    "form.name":"Nome e cognome","form.company":"Società","form.email":"E-mail professionale","form.phone":"Telefono","form.optional":"Facoltativo",
+    "form.profile":"Siete","form.select":"—","form.p1":"Investitore privato","form.p2":"Family office","form.p3":"Istituzione / operatore","form.p4":"Produttore",
+    "form.subject":"Oggetto della richiesta","form.o1":"Investimento in oro","form.o2":"Acquisto o vendita","form.o3":"Trading","form.o4":"Partnership",
+    "form.volume":"Volume previsto","form.message":"Messaggio",
+    "form.consent":"Acconsento all'utilizzo dei miei dati per il trattamento della mia richiesta, in conformità all'informativa sulla privacy.",
+    "form.submit":"Invia la richiesta","form.note":"Le vostre informazioni restano strettamente riservate.",
+    "form.done":"Grazie. La vostra richiesta è stata ricevuta — un consulente vi contatterà entro [48 ore lavorative].",
+    "footer.legalNotice":"Note legali","footer.privacy":"Informativa sulla privacy",
+    "footer.risk":"L'investimento in oro e metalli preziosi comporta rischi, in particolare di fluttuazione dei prezzi. I rendimenti passati non sono indicativi di quelli futuri. Le informazioni presentate in questa pagina non costituiscono una consulenza in materia di investimenti.",
+    "footer.entity":"[Ragione sociale, forma giuridica, sede legale, numero di iscrizione, status regolamentare — da completare]"
+  }
+};
+window.__apLang = 'fr';
+function applyLang(lang){
+  window.__apLang = lang;
+  const dict = I18N[lang] || I18N.fr;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[key] !== undefined){ el.innerHTML = dict[key]; }
+  });
+  document.querySelectorAll('.lang-switch button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang;
+  document.dispatchEvent(new CustomEvent('ap:lang'));
+}
+document.querySelectorAll('.lang-switch button').forEach(btn=>{
+  btn.addEventListener('click', ()=> applyLang(btn.dataset.lang));
+});
+
+/* ================= nav scroll state + progress ================= */
+const nav = document.getElementById('siteNav');
+const scrollBar = document.getElementById('scrollBar');
+window.addEventListener('scroll', ()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  scrollBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+}, { passive:true });
+
+/* ================= mobile menu ================= */
+const burger = document.getElementById('burgerBtn');
+const drawer = document.getElementById('mobileDrawer');
+function setMenu(open){
+  document.body.classList.toggle('menu-open', open);
+  burger.setAttribute('aria-expanded', open ? 'true':'false');
+  drawer.setAttribute('aria-hidden', open ? 'false':'true');
+}
+burger.addEventListener('click', ()=> setMenu(!document.body.classList.contains('menu-open')));
+drawer.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> setMenu(false)));
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') setMenu(false); });
+matchMedia('(min-width: 1321px)').addEventListener('change', e=>{ if(e.matches) setMenu(false); });
+
+/* ================= reveal on scroll ================= */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold:0.16, rootMargin:'0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+/* ================= service panel cursor spotlight ================= */
+document.querySelectorAll('.service-panel').forEach(panel=>{
+  panel.addEventListener('pointermove', (e)=>{
+    const r = panel.getBoundingClientRect();
+    panel.style.setProperty('--sx', ((e.clientX - r.left) / r.width * 100) + '%');
+    panel.style.setProperty('--sy', ((e.clientY - r.top) / r.height * 100) + '%');
+  }, { passive:true });
+});
+
+/* ================= subtle hero parallax on scroll ================= */
+const heroBody = document.querySelector('.hero-body');
+const coinStage = document.querySelector('.coin-stage');
+if(!reduceMotion){
+  window.addEventListener('scroll', ()=>{
+    const y = window.scrollY;
+    if(y < window.innerHeight*1.2){
+      heroBody.style.transform = `translateY(${y*0.18}px)`;
+      heroBody.style.opacity = String(Math.max(0, 1 - y/520));
+      coinStage.style.transform = `translateY(${y*0.08}px)`;
+    }
+  }, { passive:true });
+}
+
+/* ================= scroll cue appears late ================= */
+setTimeout(()=> document.getElementById('scrollCue').classList.add('on'), 2000);
+
+/* ================= custom selects (contact form) ================= */
+document.querySelectorAll('.field select').forEach((sel, n)=>{
+  const field = sel.closest('.field');
+  const label = field.querySelector('label');
+  const wrap = document.createElement('div'); wrap.className = 'cselect';
+  sel.parentNode.insertBefore(wrap, sel); wrap.appendChild(sel);
+
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'cselect-btn'; btn.id = sel.id + '-btn';
+  btn.setAttribute('aria-haspopup', 'listbox'); btn.setAttribute('aria-expanded', 'false');
+  btn.innerHTML = '<span class="cselect-value"></span><i class="cselect-arrow" aria-hidden="true"></i>';
+  const list = document.createElement('ul');
+  list.className = 'cselect-list'; list.setAttribute('role', 'listbox'); list.id = sel.id + '-list'; list.tabIndex = -1;
+  wrap.appendChild(btn); wrap.appendChild(list);
+  if(label){ label.id = label.id || sel.id + '-label'; label.setAttribute('for', btn.id);
+             btn.setAttribute('aria-labelledby', label.id + ' ' + btn.id); list.setAttribute('aria-labelledby', label.id); }
+  btn.setAttribute('aria-controls', list.id);
+  const valueEl = btn.querySelector('.cselect-value');
+  let active = -1;
+
+  function items(){ return [...list.children]; }
+  function render(){
+    list.innerHTML = '';
+    [...sel.options].forEach((o, i)=>{
+      if(o.value === '') return;                         // placeholder is not a choice
+      const li = document.createElement('li');
+      li.setAttribute('role', 'option'); li.id = sel.id + '-opt-' + i;
+      li.dataset.value = o.value; li.textContent = o.textContent;
+      li.setAttribute('aria-selected', o.selected && o.value !== '' ? 'true' : 'false');
+      li.addEventListener('click', ()=>{ choose(o.value); close(true); });
+      li.addEventListener('mousemove', ()=> setActive(items().indexOf(li)));
+      list.appendChild(li);
+    });
+    const cur = sel.options[sel.selectedIndex];
+    valueEl.textContent = cur ? cur.textContent : '';
+    valueEl.classList.toggle('is-placeholder', !cur || cur.value === '');
+  }
+  function setActive(i){
+    const li = items(); if(!li.length) return;
+    active = Math.max(0, Math.min(li.length - 1, i));
+    li.forEach((x, k)=> x.classList.toggle('active', k === active));
+    list.setAttribute('aria-activedescendant', li[active].id);
+    li[active].scrollIntoView({ block:'nearest' });
+  }
+  function choose(v){
+    sel.value = v; sel.dispatchEvent(new Event('change', { bubbles:true })); render();
+  }
+  function open(){
+    if(wrap.classList.contains('open')) return;
+    document.querySelectorAll('.cselect.open').forEach(o=> o !== wrap && o.__close && o.__close());
+    const r = btn.getBoundingClientRect();
+    wrap.classList.toggle('up', window.innerHeight - r.bottom < 240 && r.top > window.innerHeight - r.bottom);
+    wrap.classList.add('open'); btn.setAttribute('aria-expanded', 'true');
+    const selIdx = items().findIndex(li=> li.getAttribute('aria-selected') === 'true');
+    setActive(selIdx >= 0 ? selIdx : 0);
+    list.focus({ preventScroll:true });
+  }
+  function close(focusBtn){
+    wrap.classList.remove('open'); btn.setAttribute('aria-expanded', 'false');
+    items().forEach(x=> x.classList.remove('active'));
+    if(focusBtn) btn.focus({ preventScroll:true });
+  }
+  wrap.__close = ()=> close(false);
+
+  btn.addEventListener('click', ()=> wrap.classList.contains('open') ? close(true) : open());
+  btn.addEventListener('keydown', e=>{
+    if(['ArrowDown','ArrowUp','Enter',' '].includes(e.key)){ e.preventDefault(); open(); }
+  });
+  list.addEventListener('keydown', e=>{
+    const li = items();
+    if(e.key === 'ArrowDown'){ e.preventDefault(); setActive(active + 1); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); setActive(active - 1); }
+    else if(e.key === 'Home'){ e.preventDefault(); setActive(0); }
+    else if(e.key === 'End'){ e.preventDefault(); setActive(li.length - 1); }
+    else if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); if(li[active]){ choose(li[active].dataset.value); } close(true); }
+    else if(e.key === 'Escape'){ e.preventDefault(); close(true); }
+    else if(e.key === 'Tab'){ close(false); }
+    else if(e.key.length === 1){                       // type-ahead
+      const k = e.key.toLowerCase(), start = active + 1;
+      const order = li.slice(start).concat(li.slice(0, start));
+      const hit = order.find(x=> x.textContent.trim().toLowerCase().startsWith(k));
+      if(hit) setActive(li.indexOf(hit));
+    }
+  });
+  document.addEventListener('pointerdown', e=>{ if(!wrap.contains(e.target)) close(false); });
+  document.addEventListener('ap:lang', render);
+  render();
+});
+
+/* ================= contact form ================= */
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  if(!form.checkValidity()){ form.reportValidity(); return; }
+  // TODO: connect to a backend / form service before going live — nothing is transmitted yet.
+  form.classList.add('sent');
+});
+
+/* ================= 3D coin: drag + inertia + idle spin ================= */
+(() => {
+  const stage = document.getElementById('coinStage'), coin = document.getElementById('coin');
+  const shadow = document.getElementById('coinShadow'), hint = document.getElementById('dragHint');
+  const deg = document.getElementById('rotDeg');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* reeded edge: N flat facets around the rim */
+  const N = 120;
+  function buildEdge(){
+    coin.querySelectorAll('.c-seg').forEach(s => s.remove());
+    const D = coin.offsetWidth, R = D / 2;
+    const T = D * .07;
+    const w = (2 * Math.PI * R / N) * 1.06;
+    for (let i = 0; i < N; i++){
+      const s = document.createElement('div');
+      s.className = 'c-seg';
+      s.style.cssText = `width:${w}px;height:${T}px;margin:${-T/2}px 0 0 ${-w/2}px;` +
+        `transform:rotateZ(${i * 360 / N}deg) translateY(${-R + .5}px) rotateX(90deg)`;
+      coin.appendChild(s);
+    }
+  }
+  buildEdge();
+  let lastD = coin.offsetWidth;
+  addEventListener('resize', () => { if (coin.offsetWidth !== lastD){ lastD = coin.offsetWidth; buildEdge(); } });
+
+  let ry = 0, rx = -12, vy = reduce ? 0 : .35, vx = 0, dragging = false, lx = 0, ly = 0, idle = 0;
+
+  stage.addEventListener('pointerdown', e => {
+    dragging = true; lx = e.clientX; ly = e.clientY; vy = vx = 0;
+    stage.classList.add('dragging'); stage.setPointerCapture(e.pointerId);
+    hint.classList.add('hide');
+  });
+  stage.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY;
+    ry += dx * .55; rx = Math.max(-55, Math.min(55, rx - dy * .3));
+    vy = dx * .55; vx = -dy * .3;
+  });
+  const end = () => { dragging = false; stage.classList.remove('dragging'); idle = 0; };
+  stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
+
+  function frame(){
+    if (!dragging){
+      ry += vy; rx += vx; rx += (-12 - rx) * .03;
+      vy *= .965; vx *= .9;
+      if (!reduce && Math.abs(vy) < .35){ idle++; if (idle > 30) vy += (.35 - vy) * .02; }
+    }
+    const a = ((ry % 360) + 360) % 360, rad = a * Math.PI / 180;
+    coin.style.setProperty('--ry', ry + 'deg');
+    coin.style.setProperty('--rx', rx + 'deg');
+    coin.style.setProperty('--a',  (a * 1.6) + 'deg');
+    coin.style.setProperty('--a2', (-a * 1.6 + 140) + 'deg');
+    coin.style.setProperty('--g',  (50 + Math.sin(rad) * 60) + '%');
+    shadow.style.setProperty('--sh', (.35 + .65 * Math.abs(Math.cos(rad))).toFixed(3));
+    deg.textContent = String(Math.round(a)).padStart(3, '0') + '°';
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+
+</body>
+</html>
